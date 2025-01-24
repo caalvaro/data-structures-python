@@ -28,6 +28,19 @@ class DoublyLinkedList:
 
         return list_string
 
+    def __getitem__(self, index):
+        counter = 0
+        curr_node = self.first_node
+
+        while counter < index:
+            counter += 1
+            curr_node = curr_node.next_node
+
+        return curr_node
+    
+    def __len__(self):
+        return self.size
+
     def append(self, item):
         new_node = Node(item)
 
@@ -42,16 +55,6 @@ class DoublyLinkedList:
         new_node.prev_node = self.last_node
         self.last_node.next_node = new_node
         self.last_node = new_node
-
-    def __getitem__(self, index):
-        counter = 0
-        curr_node = self.first_node
-
-        while counter < index:
-            counter += 1
-            curr_node = curr_node.next_node
-
-        return curr_node
 
     def search(self, item):
         curr_node = self.first_node
@@ -82,10 +85,10 @@ class DoublyLinkedList:
             curr_node.next_node.prev_node = curr_node.prev_node
 
     def insert(self, elem, pos):
-        if pos < 0 or pos > self.size + 1:
+        if pos < 0 or pos > self.size:
             raise Exception("Position not valid.")
 
-        if pos == self.size + 1:
+        if pos == self.size:
             self.append(elem)
             return
 
@@ -93,14 +96,16 @@ class DoublyLinkedList:
         self.size += 1
 
         curr_node = self[pos]
-        prev_node = curr_node.prev_node
-        next_node = curr_node.next_node
-
-        prev_node.next_node = new_node
-        next_node.prev_node = new_node
-
-        new_node.next_node = next_node
-        new_node.prev_node = prev_node
+        
+        if pos == 0:
+            self.first_node = new_node
+        else:
+            prev_node = curr_node.prev_node
+            prev_node.next_node = new_node
+            new_node.prev_node = prev_node
+        
+        curr_node.prev_node = new_node
+        new_node.next_node = curr_node
 
 
 if __name__ == "__main__":
@@ -111,19 +116,23 @@ if __name__ == "__main__":
     doubly_linked_list.append(300)
     doubly_linked_list.append(400)
     doubly_linked_list.append(500)
-
+    
     print(doubly_linked_list)
+    print("Tamanho:", len(doubly_linked_list))
 
     doubly_linked_list.insert(99, 0)
 
     print(doubly_linked_list)
+    print("Tamanho:", len(doubly_linked_list))
 
     doubly_linked_list.insert(250, 3)
 
     print(doubly_linked_list)
+    print("Tamanho:", len(doubly_linked_list))
 
-    doubly_linked_list.insert(550, 8)
+    doubly_linked_list.insert(550, 7)
 
     print(doubly_linked_list)
+    print("Tamanho:", len(doubly_linked_list))
 
     doubly_linked_list.insert(550, 50)
