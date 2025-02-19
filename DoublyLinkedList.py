@@ -37,7 +37,7 @@ class DoublyLinkedList:
             curr_node = curr_node.next_node
 
         return curr_node
-    
+
     def __len__(self):
         return self.size
 
@@ -59,7 +59,7 @@ class DoublyLinkedList:
     def search(self, item):
         curr_node = self.first_node
 
-        while curr_node.item != item:
+        while curr_node and curr_node.item != item:
             curr_node = curr_node.next_node
 
         return curr_node
@@ -96,14 +96,14 @@ class DoublyLinkedList:
         self.size += 1
 
         curr_node = self[pos]
-        
+
         if pos == 0:
             self.first_node = new_node
         else:
             prev_node = curr_node.prev_node
             prev_node.next_node = new_node
             new_node.prev_node = prev_node
-        
+
         curr_node.prev_node = new_node
         new_node.next_node = curr_node
 
@@ -116,7 +116,7 @@ if __name__ == "__main__":
     doubly_linked_list.append(300)
     doubly_linked_list.append(400)
     doubly_linked_list.append(500)
-    
+
     print(doubly_linked_list)
     print("Tamanho:", len(doubly_linked_list))
 
