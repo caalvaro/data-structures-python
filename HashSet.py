@@ -55,17 +55,13 @@ class HashSet:
 
 
 if __name__ == "__main__":
+    from random import random
+
     hashset = HashSet()
 
-    hashset.add("25")
-    hashset.add("35")
-    hashset.add("21")
-    hashset.add("22")
-    hashset.add("26")
-    hashset.add("54")
-    hashset.add("59")
-    hashset.add("61")
-    hashset.add("72")
+    for i in range(50):
+        hashset.add(round(random(), 2))
+
     print(hashset.print_lists())
     print()
     print(hashset)
