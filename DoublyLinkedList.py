@@ -28,6 +28,9 @@ class DoublyLinkedList:
 
         return list_string
 
+    def __repr__(self):
+        return self.__str__()
+
     def __getitem__(self, index):
         counter = 0
         curr_node = self.first_node
