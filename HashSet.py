@@ -1,4 +1,4 @@
-from DoublyLinkedList import DoublyLinkedList
+from doubly_linked_lists import DoublyLinkedList
 
 
 class HashSet:

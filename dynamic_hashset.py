@@ -1,7 +1,7 @@
-from DoublyLinkedList import DoublyLinkedList
+from doubly_linked_lists import DoublyLinkedList
 
 
-class HashSet:
+class DynamicHashSet:
     def __init__(self, capacity=10, load_factor_threshold=0.75):
         self.initial_capacity = capacity
         self.buckets = [DoublyLinkedList() for _ in range(capacity)]
@@ -78,13 +78,7 @@ class HashSet:
             for i in range(len(linked_list)):
                 elements.append(linked_list[i])
 
-        return (
-            "{"
-            + ", ".join(
-                str((self._hash(element), element.item)) for element in elements
-            )
-            + "}"
-        )
+        return "{" + ", ".join(str(element.item) for element in elements) + "}"
 
     def __repr__(self):
         return "; ".join(
@@ -96,7 +90,7 @@ class HashSet:
 if __name__ == "__main__":
     from random import random
 
-    hashset = HashSet(capacity=5)
+    hashset = DynamicHashSet(capacity=5)
     keys = []
 
     for i in range(5):
