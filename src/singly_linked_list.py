@@ -1,10 +1,4 @@
-class Node:
-    def __init__(self, item) -> None:
-        self.item = item
-        self.next_node = None
-
-    def __str__(self) -> str:
-        return str(self.item)
+from node import Node
 
 
 class SingleLinkedList:

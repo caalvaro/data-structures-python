@@ -1,7 +1,16 @@
-from doubly_linked_lists import DoublyLinkedList
+from .doubly_linked_lists import DoublyLinkedList
+from typing import Hashable
 
 
 class DynamicHashSet:
+    """
+    Basic implementation of a HashSet with dynamic resizing of its capacity.
+
+    Atributes:
+    initial_capacity (int): the capacity passed as a param in the instantiation of the class.
+    buckets (list[DoubleLinkedList]):
+    """
+
     def __init__(self, capacity=10, load_factor_threshold=0.75):
         self.initial_capacity = capacity
         self.buckets = [DoublyLinkedList() for _ in range(capacity)]
@@ -9,10 +18,16 @@ class DynamicHashSet:
         self.capacity = capacity
         self.size = 0
 
-    def _hash(self, key):
+    def _hash(self, key: Hashable) -> int:
         return hash(key) % self.capacity
 
-    def add(self, key):
+    def add(self, key: Hashable) -> None:
+        """
+        Add a new key to the HashSet.
+
+        Params:
+        key (Hashable): A key of any hashable type to store in the HashSet.
+        """
         if key in self:  # if self.__contains__(key):
             return
 
@@ -24,7 +39,7 @@ class DynamicHashSet:
         if self.size / self.capacity > self.load_factor_threshold:
             self.resize(self.capacity * 2)
 
-    def remove(self, key):
+    def remove(self, key: Hashable) -> None:
         if key not in self:
             raise Exception("Key is not in the set.")
 
@@ -39,7 +54,7 @@ class DynamicHashSet:
         ):
             self.resize(self.capacity // 2)
 
-    def resize(self, new_capacity):
+    def resize(self, new_capacity: int) -> None:
         self.capacity = new_capacity
         old_buckets = self.buckets
         self.buckets = [DoublyLinkedList() for _ in range(new_capacity)]
@@ -49,21 +64,21 @@ class DynamicHashSet:
             for i in range(len(bucket)):
                 self.add(bucket[i].item)
 
-        print("\n\n------- Resize done -------\n")
-        self.print_lists()
-        print("\n\n\n")
+        # print("\n\n------- Resize done -------\n")
+        # self.print_lists()
+        # print("\n\n\n")
 
-    def __contains__(self, key):
+    def __contains__(self, key: Hashable) -> bool:
         """if key in conjunto"""
         index = self._hash(key)
         linked_list = self.buckets[index]
 
         return linked_list.search(key) is not None
 
-    def __len__(self):
+    def __len__(self) -> int:
         return self.size
 
-    def print_lists(self):
+    def print_lists(self) -> None:
         print(
             "\n".join(
                 str(i) + " -> " + str(linked_list)
@@ -72,7 +87,7 @@ class DynamicHashSet:
             + "\n\n"
         )
 
-    def __str__(self):
+    def __str__(self) -> str:
         elements = []  # [25, 35, 22, 59, 61, 21, 26, 54]
         for linked_list in self.buckets:
             for i in range(len(linked_list)):
@@ -80,7 +95,7 @@ class DynamicHashSet:
 
         return "{" + ", ".join(str(element.item) for element in elements) + "}"
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return "; ".join(
             str(i) + " -> " + str(linked_list)
             for i, linked_list in enumerate(self.buckets)

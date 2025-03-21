@@ -1,5 +1,5 @@
 import pytest
-from dynamic_hashset import DynamicHashSet
+from ..src.dynamic_hashset import DynamicHashSet
 
 
 @pytest.fixture

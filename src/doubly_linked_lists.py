@@ -1,11 +1,5 @@
-class Node:
-    def __init__(self, item) -> None:
-        self.item = item
-        self.prev_node = None
-        self.next_node = None
-
-    def __str__(self) -> str:
-        return str(self.item)
+from typing import Any
+from .node import Node
 
 
 class DoublyLinkedList:
@@ -31,11 +25,12 @@ class DoublyLinkedList:
     def __repr__(self):
         return self.__str__()
 
-    def __getitem__(self, index):
+    def __getitem__(self, index: int) -> Node | None:
         counter = 0
-        curr_node = self.first_node
 
-        while counter < index:
+        curr_node: Node | None = self.first_node
+
+        while counter < index and curr_node is not None:
             counter += 1
             curr_node = curr_node.next_node
 
@@ -44,8 +39,8 @@ class DoublyLinkedList:
     def __len__(self):
         return self.size
 
-    def append(self, item):
-        new_node = Node(item)
+    def append(self, item: Any) -> None:
+        new_node: Node = Node(item)
 
         if self.size == 0:
             self.size += 1
