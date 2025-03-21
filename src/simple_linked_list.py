@@ -1,4 +1,4 @@
-from node import Node
+from .node import Node
 
 
 def print_linked_list(head: Node) -> str:

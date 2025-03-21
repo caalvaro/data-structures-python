@@ -40,7 +40,7 @@ class DoublyLinkedList:
         return self.size
 
     def append(self, item: Any) -> None:
-        new_node: Node = Node(item)
+        new_node: Node | None = Node(item)
 
         if self.size == 0:
             self.size += 1

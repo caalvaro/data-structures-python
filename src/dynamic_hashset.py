@@ -40,6 +40,17 @@ class DynamicHashSet:
             self.resize(self.capacity * 2)
 
     def remove(self, key: Hashable) -> None:
+        """
+
+        Args:
+            key: A port value greater or equal to 1024.
+
+        Returns:
+            The new minimum port.
+
+        Raises:
+            ConnectionError: If no available port is found.
+        """
         if key not in self:
             raise Exception("Key is not in the set.")
 
@@ -62,7 +73,8 @@ class DynamicHashSet:
 
         for bucket in old_buckets:
             for i in range(len(bucket)):
-                self.add(bucket[i].item)
+                if bucket[i] is not None:
+                    self.add(bucket[i].item)
 
         # print("\n\n------- Resize done -------\n")
         # self.print_lists()

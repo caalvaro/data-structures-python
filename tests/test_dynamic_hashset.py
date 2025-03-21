@@ -78,3 +78,7 @@ def test_string_set(hashset):
     hashset.add(3)
 
     assert str(hashset) == "{1, 2, 3}"
+
+
+if __name__ == '__main__':
+    print("MAIN")
