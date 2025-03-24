@@ -2,10 +2,12 @@ from typing import Any
 
 
 class Node:
-    def __init__(self, item: Any) -> None:
+    def __init__(self, item: Any):
+        if item is not None:
+            self.prev_node = Node(None)
+            self.next_node = Node(None)
+
         self.item = item
-        self.prev_node = None
-        self.next_node = None
 
     def __str__(self) -> str:
         return str(self.item)

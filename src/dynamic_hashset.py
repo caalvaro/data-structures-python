@@ -1,4 +1,4 @@
-from .doubly_linked_lists import DoublyLinkedList
+from .doubly_linked_list import DoublyLinkedList
 from typing import Hashable
 
 
@@ -73,7 +73,7 @@ class DynamicHashSet:
 
         for bucket in old_buckets:
             for i in range(len(bucket)):
-                if bucket[i] is not None:
+                if bucket[i].item is not None:
                     self.add(bucket[i].item)
 
         # print("\n\n------- Resize done -------\n")
@@ -85,7 +85,7 @@ class DynamicHashSet:
         index = self._hash(key)
         linked_list = self.buckets[index]
 
-        return linked_list.search(key) is not None
+        return linked_list.search(key).item is not None
 
     def __len__(self) -> int:
         return self.size

@@ -5,8 +5,8 @@ from .node import Node
 class DoublyLinkedList:
     def __init__(self) -> None:
         self.size = 0
-        self.first_node = None
-        self.last_node = None
+        self.first_node = Node(None)
+        self.last_node = Node(None)
 
     def __str__(self) -> str:
         if self.size == 0:
@@ -15,7 +15,7 @@ class DoublyLinkedList:
         list_string = "|"
 
         curr_node = self.first_node
-        while curr_node is not None:
+        while curr_node.item is not None:
             list_string += " " + str(curr_node.item) + " |"
 
             curr_node = curr_node.next_node
@@ -25,12 +25,12 @@ class DoublyLinkedList:
     def __repr__(self):
         return self.__str__()
 
-    def __getitem__(self, index: int) -> Node | None:
+    def __getitem__(self, index: int) -> Node:
         counter = 0
 
         curr_node: Node | None = self.first_node
 
-        while counter < index and curr_node is not None:
+        while counter < index and curr_node.item is not None:
             counter += 1
             curr_node = curr_node.next_node
 
@@ -40,7 +40,10 @@ class DoublyLinkedList:
         return self.size
 
     def append(self, item: Any) -> None:
-        new_node: Node | None = Node(item)
+        if item is None:
+            raise Exception("Item can not be None.")
+
+        new_node = Node(item)
 
         if self.size == 0:
             self.size += 1
@@ -57,7 +60,7 @@ class DoublyLinkedList:
     def search(self, item):
         curr_node = self.first_node
 
-        while curr_node and curr_node.item != item:
+        while curr_node.item and curr_node.item != item:
             curr_node = curr_node.next_node
 
         return curr_node

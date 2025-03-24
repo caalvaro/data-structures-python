@@ -1,14 +1,21 @@
-from .node import Node
+class Node:
+    def __init__(self, item=None) -> None:
+        self.item = item
+        self.next_node = None
+
+    def __str__(self) -> str:
+        return str(self.item)
 
 
-def print_linked_list(head: Node) -> str:
-    if head.next_node is None:
-        return "| |"
+def print_linked_list(head: Node) -> None:
+    if head.next_node.item is None:
+        print("| |")
+        return
 
     list_string = "|"
 
     curr_node = head.next_node
-    while curr_node is not None:
+    while curr_node.item is not None:
         list_string += " " + str(curr_node.item) + " |"
 
         curr_node = curr_node.next_node
@@ -19,12 +26,12 @@ def print_linked_list(head: Node) -> str:
 def append(head: Node, item):
     new_node = Node(item)
 
-    if head.next_node is None:
+    if head.next_node.item is None:
         head.next_node = new_node
         return
 
     aux_node = head.next_node
-    while aux_node.next_node is not None:
+    while aux_node.next_node.item is not None:
         aux_node = aux_node.next_node
 
     aux_node.next_node = new_node
@@ -33,7 +40,7 @@ def append(head: Node, item):
 def search(head: Node, item):
     aux_node = head
 
-    while aux_node.item != item and aux_node.next_node is not None:
+    while aux_node.item != item and aux_node.next_node.item is not None:
         aux_node = aux_node.next_node
 
     return aux_node
@@ -57,7 +64,7 @@ def remove(head: Node, index=None, item=None):
     elif item is not None:
         aux_node = head
 
-        while aux_node.next_node is not None and aux_node.next_node.item != item:
+        while aux_node.next_node.item is not None and aux_node.next_node.item != item:
             aux_node = aux_node.next_node
 
         prev_node = aux_node
@@ -81,7 +88,7 @@ def insert(head, elem, pos):
 
 
 if __name__ == "__main__":
-    head = Node()
+    head = Node(None)
 
     append(head, 100)
     append(head, 200)

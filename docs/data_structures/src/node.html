@@ -39,12 +39,6 @@
                         <li>
                                 <a class="variable" href="#Node.item">item</a>
                         </li>
-                        <li>
-                                <a class="variable" href="#Node.prev_node">prev_node</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#Node.next_node">next_node</a>
-                        </li>
                 </ul>
 
             </li>
@@ -73,13 +67,15 @@ data_structures<wbr>.<a href="./../src.html">src</a><wbr>.node    </h1>
 </span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a>
 </span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a>
 </span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a><span class="k">class</span><span class="w"> </span><span class="nc">Node</span><span class="p">:</span>
-</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">item</span> <span class="o">=</span> <span class="n">item</span>
-</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">prev_node</span> <span class="o">=</span> <span class="kc">None</span>
-</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">next_node</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">Any</span><span class="p">):</span>
+</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a>        <span class="k">if</span> <span class="n">item</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">prev_node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">next_node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
 </span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a>
-</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a>        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">item</span><span class="p">)</span>
+</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">item</span> <span class="o">=</span> <span class="n">item</span>
+</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a>
+</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a>        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">item</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -96,13 +92,15 @@ data_structures<wbr>.<a href="./../src.html">src</a><wbr>.node    </h1>
     </div>
     <a class="headerlink" href="#Node"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="Node-5"><a href="#Node-5"><span class="linenos"> 5</span></a><span class="k">class</span><span class="w"> </span><span class="nc">Node</span><span class="p">:</span>
-</span><span id="Node-6"><a href="#Node-6"><span class="linenos"> 6</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="Node-7"><a href="#Node-7"><span class="linenos"> 7</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">item</span> <span class="o">=</span> <span class="n">item</span>
-</span><span id="Node-8"><a href="#Node-8"><span class="linenos"> 8</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">prev_node</span> <span class="o">=</span> <span class="kc">None</span>
-</span><span id="Node-9"><a href="#Node-9"><span class="linenos"> 9</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">next_node</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span id="Node-6"><a href="#Node-6"><span class="linenos"> 6</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">Any</span><span class="p">):</span>
+</span><span id="Node-7"><a href="#Node-7"><span class="linenos"> 7</span></a>        <span class="k">if</span> <span class="n">item</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="Node-8"><a href="#Node-8"><span class="linenos"> 8</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">prev_node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+</span><span id="Node-9"><a href="#Node-9"><span class="linenos"> 9</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">next_node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
 </span><span id="Node-10"><a href="#Node-10"><span class="linenos">10</span></a>
-</span><span id="Node-11"><a href="#Node-11"><span class="linenos">11</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="Node-12"><a href="#Node-12"><span class="linenos">12</span></a>        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">item</span><span class="p">)</span>
+</span><span id="Node-11"><a href="#Node-11"><span class="linenos">11</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">item</span> <span class="o">=</span> <span class="n">item</span>
+</span><span id="Node-12"><a href="#Node-12"><span class="linenos">12</span></a>
+</span><span id="Node-13"><a href="#Node-13"><span class="linenos">13</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="Node-14"><a href="#Node-14"><span class="linenos">14</span></a>        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">item</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -118,10 +116,12 @@ data_structures<wbr>.<a href="./../src.html">src</a><wbr>.node    </h1>
 
     </div>
     <a class="headerlink" href="#Node.__init__"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Node.__init__-6"><a href="#Node.__init__-6"><span class="linenos">6</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="Node.__init__-7"><a href="#Node.__init__-7"><span class="linenos">7</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">item</span> <span class="o">=</span> <span class="n">item</span>
-</span><span id="Node.__init__-8"><a href="#Node.__init__-8"><span class="linenos">8</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">prev_node</span> <span class="o">=</span> <span class="kc">None</span>
-</span><span id="Node.__init__-9"><a href="#Node.__init__-9"><span class="linenos">9</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">next_node</span> <span class="o">=</span> <span class="kc">None</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Node.__init__-6"><a href="#Node.__init__-6"><span class="linenos"> 6</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">Any</span><span class="p">):</span>
+</span><span id="Node.__init__-7"><a href="#Node.__init__-7"><span class="linenos"> 7</span></a>        <span class="k">if</span> <span class="n">item</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="Node.__init__-8"><a href="#Node.__init__-8"><span class="linenos"> 8</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">prev_node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+</span><span id="Node.__init__-9"><a href="#Node.__init__-9"><span class="linenos"> 9</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">next_node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+</span><span id="Node.__init__-10"><a href="#Node.__init__-10"><span class="linenos">10</span></a>
+</span><span id="Node.__init__-11"><a href="#Node.__init__-11"><span class="linenos">11</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">item</span> <span class="o">=</span> <span class="n">item</span>
 </span></pre></div>
 
 
@@ -135,28 +135,6 @@ data_structures<wbr>.<a href="./../src.html">src</a><wbr>.node    </h1>
         
     </div>
     <a class="headerlink" href="#Node.item"></a>
-    
-    
-
-                            </div>
-                            <div id="Node.prev_node" class="classattr">
-                                <div class="attr variable">
-            <span class="name">prev_node</span>
-
-        
-    </div>
-    <a class="headerlink" href="#Node.prev_node"></a>
-    
-    
-
-                            </div>
-                            <div id="Node.next_node" class="classattr">
-                                <div class="attr variable">
-            <span class="name">next_node</span>
-
-        
-    </div>
-    <a class="headerlink" href="#Node.next_node"></a>
     
     
 
