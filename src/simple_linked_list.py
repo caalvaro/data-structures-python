@@ -1,13 +1,37 @@
 class Node:
+    """
+    Represents a node in a singly linked list.
+
+    Each node stores a single data item and a reference to the next node
+    in the list. This class is used as the fundamental building block for
+    singly linked list structures.
+
+    Attributes:
+        item (Any): The value stored in the node.
+        next_node (Node | None): Reference to the next node in the list.
+
+    """
     def __init__(self, item=None) -> None:
+        """Initializes a node with an optional item.
+
+        Args:
+            item (Any, optional): The value to store in the node. Defaults to None.
+        """
         self.item = item
         self.next_node = None
 
     def __str__(self) -> str:
+        """ Returns a string representation of the node's item."""
         return str(self.item)
 
 
 def print_linked_list(head: Node) -> None:
+    """
+    Prints the contents of a singly linked list.
+
+    Args:
+        head (Node): The head node of the linked list.
+    """
     if head.next_node.item is None:
         print("| |")
         return
@@ -24,6 +48,14 @@ def print_linked_list(head: Node) -> None:
 
 
 def append(head: Node, item):
+    """
+    Appends a new item to the end of the singly linked list.
+
+    Args:
+        head (Node): The head node of the linked list.
+        item (Any): The value to append to the list.
+
+    """
     new_node = Node(item)
 
     if head.next_node.item is None:
@@ -38,6 +70,15 @@ def append(head: Node, item):
 
 
 def search(head: Node, item):
+    """
+    Searches for an item in the singly linked list.
+    Args:
+        head (Node): The head node of the linked list.
+        item (Any): The value to search for in the list.
+
+    Returns:
+        Node: The node containing the item if found, otherwise None.
+    """
     aux_node = head
 
     while aux_node.item != item and aux_node.next_node.item is not None:
@@ -47,6 +88,15 @@ def search(head: Node, item):
 
 
 def get_node(head: Node, index):
+    """
+    Gets the node at a specific index in the singly linked list.
+    Args:
+        head (Node): The head node of the linked list.
+        index (int): The index of the node to retrieve.
+
+    Returns:
+        Node: The node at the specified index.
+    """
     aux_node = head
     counter = 0
 
@@ -58,6 +108,14 @@ def get_node(head: Node, index):
 
 
 def remove(head: Node, index=None, item=None):
+    """
+    Removes a node from the singly linked list by index or item.
+    Args:
+        head (Node): The head node of the linked list.
+        index (int): The index of the node to remove. Defaults to None.
+        item (Any): The value of the node to remove. Defaults to None.
+
+    """
     if index is not None:
         prev_node = get_node(head, index - 1)
         curr_node = prev_node.next_node
@@ -78,6 +136,14 @@ def remove(head: Node, index=None, item=None):
 
 
 def insert(head, elem, pos):
+    """
+    Inserts a new node with the given element at the specified position in the singly linked list.
+
+    Args:
+        head (Node): The head node of the linked list.
+        elem (Any): The value to insert into the list.
+        pos (int): The position at which to insert the new node.
+    """
     new_node = Node(elem)
 
     prev_node = get_node(head, pos - 1)

@@ -12,6 +12,17 @@ class DynamicHashSet:
     """
 
     def __init__(self, capacity=10, load_factor_threshold=0.75):
+        """
+        Initializes a HashSet with a given capacity and load factor threshold.
+
+        Args:
+            initial_capacity (int): The initial capacity of the HashSet.
+            buckets (list[DoublyLinkedList]): The list of buckets for the HashSet.
+            load_factor_threshold (float): The load factor threshold for resizing.
+            capacity (int): The initial capacity of the HashSet.
+            size (int): The number of elements in the HashSet.
+
+        """
         self.initial_capacity = capacity
         self.buckets = [DoublyLinkedList() for _ in range(capacity)]
         self.load_factor_threshold = load_factor_threshold
@@ -19,6 +30,14 @@ class DynamicHashSet:
         self.size = 0
 
     def _hash(self, key: Hashable) -> int:
+        """
+        Hash function to map a key to an index in the buckets.
+
+        Args:
+            key (Hashable): The key to be hashed.
+        Returns:
+            int: The index in the buckets where the key should be stored.
+        """
         return hash(key) % self.capacity
 
     def add(self, key: Hashable) -> None:
@@ -66,6 +85,15 @@ class DynamicHashSet:
             self.resize(self.capacity // 2)
 
     def resize(self, new_capacity: int) -> None:
+        """
+        Resize the HashSet to a new capacity.
+        Args:
+            capacity (int): The new capacity for the HashSet.
+            old_buckets (list[DoublyLinkedList]): The list of buckets before resizing.
+            buckets (list[DoublyLinkedList]): The list of buckets after resizing.
+            size (int): The number of elements in the HashSet.
+
+        """
         self.capacity = new_capacity
         old_buckets = self.buckets
         self.buckets = [DoublyLinkedList() for _ in range(new_capacity)]
@@ -81,16 +109,30 @@ class DynamicHashSet:
         # print("\n\n\n")
 
     def __contains__(self, key: Hashable) -> bool:
-        """if key in conjunto"""
+        """
+        contains(key): Returns True if the key is in the HashSet, False otherwise.
+        Args:
+            index (int): The index of the key to be searched for.
+            linked_list: buckets[index]: The linked list at the index of the key.
+
+        Returns:
+            bool: True if the key is in the HashSet, False otherwise.
+        """
         index = self._hash(key)
         linked_list = self.buckets[index]
 
         return linked_list.search(key).item is not None
 
     def __len__(self) -> int:
+        """
+        __len__(): Returns the number of elements in the HashSet.
+        """
         return self.size
 
     def print_lists(self) -> None:
+        """
+        print_lists(): Prints the contents of the HashSet.
+        """
         print(
             "\n".join(
                 str(i) + " -> " + str(linked_list)
@@ -108,6 +150,9 @@ class DynamicHashSet:
         return "{" + ", ".join(str(element.item) for element in elements) + "}"
 
     def __repr__(self) -> str:
+        """
+        repr (): Returns a string representation of the HashSet.
+        """
         return "; ".join(
             str(i) + " -> " + str(linked_list)
             for i, linked_list in enumerate(self.buckets)
