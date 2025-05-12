@@ -132,13 +132,13 @@ data_structures<wbr>.<a href="./../src.html">src</a><wbr>.dynamic_hashset    </h
 </span><span id="L-43"><a href="#L-43"><span class="linenos"> 43</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-44"><a href="#L-44"><span class="linenos"> 44</span></a>
 </span><span id="L-45"><a href="#L-45"><span class="linenos"> 45</span></a><span class="sd">        Args:</span>
-</span><span id="L-46"><a href="#L-46"><span class="linenos"> 46</span></a><span class="sd">            key: A port value greater or equal to 1024.</span>
+</span><span id="L-46"><a href="#L-46"><span class="linenos"> 46</span></a><span class="sd">            key: </span>
 </span><span id="L-47"><a href="#L-47"><span class="linenos"> 47</span></a>
 </span><span id="L-48"><a href="#L-48"><span class="linenos"> 48</span></a><span class="sd">        Returns:</span>
-</span><span id="L-49"><a href="#L-49"><span class="linenos"> 49</span></a><span class="sd">            The new minimum port.</span>
+</span><span id="L-49"><a href="#L-49"><span class="linenos"> 49</span></a><span class="sd">            ...</span>
 </span><span id="L-50"><a href="#L-50"><span class="linenos"> 50</span></a>
 </span><span id="L-51"><a href="#L-51"><span class="linenos"> 51</span></a><span class="sd">        Raises:</span>
-</span><span id="L-52"><a href="#L-52"><span class="linenos"> 52</span></a><span class="sd">            ConnectionError: If no available port is found.</span>
+</span><span id="L-52"><a href="#L-52"><span class="linenos"> 52</span></a><span class="sd">            Exception: Key is not in the set.</span>
 </span><span id="L-53"><a href="#L-53"><span class="linenos"> 53</span></a><span class="sd">        &quot;&quot;&quot;</span>
 </span><span id="L-54"><a href="#L-54"><span class="linenos"> 54</span></a>        <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
 </span><span id="L-55"><a href="#L-55"><span class="linenos"> 55</span></a>            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Key is not in the set.&quot;</span><span class="p">)</span>
@@ -276,13 +276,13 @@ data_structures<wbr>.<a href="./../src.html">src</a><wbr>.dynamic_hashset    </h
 </span><span id="DynamicHashSet-44"><a href="#DynamicHashSet-44"><span class="linenos"> 44</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="DynamicHashSet-45"><a href="#DynamicHashSet-45"><span class="linenos"> 45</span></a>
 </span><span id="DynamicHashSet-46"><a href="#DynamicHashSet-46"><span class="linenos"> 46</span></a><span class="sd">        Args:</span>
-</span><span id="DynamicHashSet-47"><a href="#DynamicHashSet-47"><span class="linenos"> 47</span></a><span class="sd">            key: A port value greater or equal to 1024.</span>
+</span><span id="DynamicHashSet-47"><a href="#DynamicHashSet-47"><span class="linenos"> 47</span></a><span class="sd">            key: </span>
 </span><span id="DynamicHashSet-48"><a href="#DynamicHashSet-48"><span class="linenos"> 48</span></a>
 </span><span id="DynamicHashSet-49"><a href="#DynamicHashSet-49"><span class="linenos"> 49</span></a><span class="sd">        Returns:</span>
-</span><span id="DynamicHashSet-50"><a href="#DynamicHashSet-50"><span class="linenos"> 50</span></a><span class="sd">            The new minimum port.</span>
+</span><span id="DynamicHashSet-50"><a href="#DynamicHashSet-50"><span class="linenos"> 50</span></a><span class="sd">            ...</span>
 </span><span id="DynamicHashSet-51"><a href="#DynamicHashSet-51"><span class="linenos"> 51</span></a>
 </span><span id="DynamicHashSet-52"><a href="#DynamicHashSet-52"><span class="linenos"> 52</span></a><span class="sd">        Raises:</span>
-</span><span id="DynamicHashSet-53"><a href="#DynamicHashSet-53"><span class="linenos"> 53</span></a><span class="sd">            ConnectionError: If no available port is found.</span>
+</span><span id="DynamicHashSet-53"><a href="#DynamicHashSet-53"><span class="linenos"> 53</span></a><span class="sd">            Exception: Key is not in the set.</span>
 </span><span id="DynamicHashSet-54"><a href="#DynamicHashSet-54"><span class="linenos"> 54</span></a><span class="sd">        &quot;&quot;&quot;</span>
 </span><span id="DynamicHashSet-55"><a href="#DynamicHashSet-55"><span class="linenos"> 55</span></a>        <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
 </span><span id="DynamicHashSet-56"><a href="#DynamicHashSet-56"><span class="linenos"> 56</span></a>            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Key is not in the set.&quot;</span><span class="p">)</span>
@@ -487,13 +487,13 @@ key (Hashable): A key of any hashable type to store in the HashSet.</p>
 </span><span id="DynamicHashSet.remove-44"><a href="#DynamicHashSet.remove-44"><span class="linenos">44</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="DynamicHashSet.remove-45"><a href="#DynamicHashSet.remove-45"><span class="linenos">45</span></a>
 </span><span id="DynamicHashSet.remove-46"><a href="#DynamicHashSet.remove-46"><span class="linenos">46</span></a><span class="sd">        Args:</span>
-</span><span id="DynamicHashSet.remove-47"><a href="#DynamicHashSet.remove-47"><span class="linenos">47</span></a><span class="sd">            key: A port value greater or equal to 1024.</span>
+</span><span id="DynamicHashSet.remove-47"><a href="#DynamicHashSet.remove-47"><span class="linenos">47</span></a><span class="sd">            key: </span>
 </span><span id="DynamicHashSet.remove-48"><a href="#DynamicHashSet.remove-48"><span class="linenos">48</span></a>
 </span><span id="DynamicHashSet.remove-49"><a href="#DynamicHashSet.remove-49"><span class="linenos">49</span></a><span class="sd">        Returns:</span>
-</span><span id="DynamicHashSet.remove-50"><a href="#DynamicHashSet.remove-50"><span class="linenos">50</span></a><span class="sd">            The new minimum port.</span>
+</span><span id="DynamicHashSet.remove-50"><a href="#DynamicHashSet.remove-50"><span class="linenos">50</span></a><span class="sd">            ...</span>
 </span><span id="DynamicHashSet.remove-51"><a href="#DynamicHashSet.remove-51"><span class="linenos">51</span></a>
 </span><span id="DynamicHashSet.remove-52"><a href="#DynamicHashSet.remove-52"><span class="linenos">52</span></a><span class="sd">        Raises:</span>
-</span><span id="DynamicHashSet.remove-53"><a href="#DynamicHashSet.remove-53"><span class="linenos">53</span></a><span class="sd">            ConnectionError: If no available port is found.</span>
+</span><span id="DynamicHashSet.remove-53"><a href="#DynamicHashSet.remove-53"><span class="linenos">53</span></a><span class="sd">            Exception: Key is not in the set.</span>
 </span><span id="DynamicHashSet.remove-54"><a href="#DynamicHashSet.remove-54"><span class="linenos">54</span></a><span class="sd">        &quot;&quot;&quot;</span>
 </span><span id="DynamicHashSet.remove-55"><a href="#DynamicHashSet.remove-55"><span class="linenos">55</span></a>        <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
 </span><span id="DynamicHashSet.remove-56"><a href="#DynamicHashSet.remove-56"><span class="linenos">56</span></a>            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Key is not in the set.&quot;</span><span class="p">)</span>
@@ -512,13 +512,13 @@ key (Hashable): A key of any hashable type to store in the HashSet.</p>
 
 
             <div class="docstring"><p>Args:
-    key: A port value greater or equal to 1024.</p>
+    key: </p>
 
 <p>Returns:
-    The new minimum port.</p>
+    ...</p>
 
 <p>Raises:
-    ConnectionError: If no available port is found.</p>
+    Exception: Key is not in the set.</p>
 </div>
 
 

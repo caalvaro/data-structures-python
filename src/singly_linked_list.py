@@ -4,8 +4,8 @@ from .node import Node
 class SingleLinkedList:
     def __init__(self) -> None:
         self.size = 0
-        self.first_node = None
-        self.last_node = None
+        self.first_node = Node(None)
+        self.last_node = Node(None)
 
     def __str__(self) -> str:
         if self.size == 0:
@@ -14,10 +14,11 @@ class SingleLinkedList:
         list_string = "|"
 
         curr_node = self.first_node
-        while curr_node is not None:
+        while curr_node.item is not None:
             list_string += " " + str(curr_node.item) + " |"
 
-            curr_node = curr_node.next_node
+            if curr_node.item is not None:
+                curr_node = curr_node.next_node
 
         return list_string
 
@@ -62,7 +63,7 @@ class SingleLinkedList:
         prev_node = None
 
         while curr_node.item != item:
-            prev_node, curr_node
+            # prev_node, curr_node
             curr_node = curr_node.next_node
 
         return curr_node, prev_node
@@ -79,7 +80,8 @@ class SingleLinkedList:
             self.first_node = curr_node.next_node
             return
 
-        prev_node.next_node = curr_node.next_node
+        if prev_node is not None:
+            prev_node.next_node = curr_node.next_node
 
     def insert(self, elem, pos):
         if pos < 0 or pos > self.size + 1:
@@ -131,4 +133,7 @@ if __name__ == "__main__":
 
     print(single_linked_list)
 
-    single_linked_list.insert(550, 50)
+    try:
+        single_linked_list.insert(550, 50)
+    except:
+        print("Position not valid.")
