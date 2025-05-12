@@ -67,26 +67,53 @@ data_structures<wbr>.<a href="./../src.html">src</a><wbr>.stack    </h1>
 </span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a>
 </span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a>
 </span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a><span class="k">class</span><span class="w"> </span><span class="nc">Stack</span><span class="p">(</span><span class="n">DoublyLinkedList</span><span class="p">):</span>
-</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
-</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
-</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a>
-</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a>        <span class="n">last_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_node</span>
-</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">-=</span> <span class="mi">1</span>
-</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a>
-</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>        <span class="k">if</span> <span class="n">last_node</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">first_node</span><span class="p">:</span>
-</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a>            <span class="n">second_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">first_node</span><span class="o">.</span><span class="n">next_node</span>
-</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">first_node</span> <span class="o">=</span> <span class="n">second_node</span>
-</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a>        <span class="k">else</span><span class="p">:</span>
-</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>            <span class="n">last_node</span><span class="o">.</span><span class="n">prev_node</span><span class="o">.</span><span class="n">next_node</span> <span class="o">=</span> <span class="n">last_node</span><span class="o">.</span><span class="n">next_node</span>
-</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a>
-</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>        <span class="k">if</span> <span class="n">last_node</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_node</span><span class="p">:</span>
-</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>            <span class="n">penult_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_node</span><span class="o">.</span><span class="n">prev_node</span>
-</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">last_node</span> <span class="o">=</span> <span class="n">penult_node</span>
-</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>        <span class="k">else</span><span class="p">:</span>
-</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a>            <span class="n">last_node</span><span class="o">.</span><span class="n">next_node</span><span class="o">.</span><span class="n">prev_node</span> <span class="o">=</span> <span class="n">last_node</span><span class="o">.</span><span class="n">prev_node</span>
-</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>
-</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a>        <span class="k">return</span> <span class="n">last_node</span>
+</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a><span class="sd">    Stack is a data structure that follows the Last In First Out (LIFO) principle.</span>
+</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="sd">    It allows for adding and removing elements from the same end, known as the top of the stack.</span>
+</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a>
+</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="sd">    This implementation uses a doubly linked list to manage the elements, providing efficient</span>
+</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a><span class="sd">    operations for pushing and popping items. The stack maintains a reference to the last node,</span>
+</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="sd">    which represents the top of the stack, and tracks the size of the stack.</span>
+</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>
+</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a><span class="sd">    Attributes:</span>
+</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a><span class="sd">        size (int): The number of elements currently in the stack.</span>
+</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="sd">        first_node (Node | None): The first node in the stack.</span>
+</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a><span class="sd">        last_node (Node | None): The last node in the stack.</span>
+</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>
+</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a><span class="sd">        Pushes an item onto the top of the stack.</span>
+</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a>
+</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a><span class="sd">        Args:</span>
+</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a><span class="sd">            item (Any): The value to be added to the stack.</span>
+</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a>
+</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a><span class="sd">        Pops the top item from the stack.</span>
+</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a><span class="sd">        Removes the last node from the stack and returns it.</span>
+</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a>
+</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a><span class="sd">        Returns:</span>
+</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a><span class="sd">            Node: The node that was removed from the stack.</span>
+</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a>        <span class="n">last_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_node</span>
+</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">-=</span> <span class="mi">1</span>
+</span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a>
+</span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a>        <span class="k">if</span> <span class="n">last_node</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">first_node</span><span class="p">:</span>
+</span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a>            <span class="n">second_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">first_node</span><span class="o">.</span><span class="n">next_node</span>
+</span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">first_node</span> <span class="o">=</span> <span class="n">second_node</span>
+</span><span id="L-42"><a href="#L-42"><span class="linenos">42</span></a>        <span class="k">else</span><span class="p">:</span>
+</span><span id="L-43"><a href="#L-43"><span class="linenos">43</span></a>            <span class="n">last_node</span><span class="o">.</span><span class="n">prev_node</span><span class="o">.</span><span class="n">next_node</span> <span class="o">=</span> <span class="n">last_node</span><span class="o">.</span><span class="n">next_node</span>
+</span><span id="L-44"><a href="#L-44"><span class="linenos">44</span></a>
+</span><span id="L-45"><a href="#L-45"><span class="linenos">45</span></a>        <span class="k">if</span> <span class="n">last_node</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_node</span><span class="p">:</span>
+</span><span id="L-46"><a href="#L-46"><span class="linenos">46</span></a>            <span class="n">penult_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_node</span><span class="o">.</span><span class="n">prev_node</span>
+</span><span id="L-47"><a href="#L-47"><span class="linenos">47</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">last_node</span> <span class="o">=</span> <span class="n">penult_node</span>
+</span><span id="L-48"><a href="#L-48"><span class="linenos">48</span></a>        <span class="k">else</span><span class="p">:</span>
+</span><span id="L-49"><a href="#L-49"><span class="linenos">49</span></a>            <span class="n">last_node</span><span class="o">.</span><span class="n">next_node</span><span class="o">.</span><span class="n">prev_node</span> <span class="o">=</span> <span class="n">last_node</span><span class="o">.</span><span class="n">prev_node</span>
+</span><span id="L-50"><a href="#L-50"><span class="linenos">50</span></a>
+</span><span id="L-51"><a href="#L-51"><span class="linenos">51</span></a>        <span class="k">return</span> <span class="n">last_node</span>
 </span></pre></div>
 
 
@@ -103,30 +130,69 @@ data_structures<wbr>.<a href="./../src.html">src</a><wbr>.stack    </h1>
     </div>
     <a class="headerlink" href="#Stack"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="Stack-5"><a href="#Stack-5"><span class="linenos"> 5</span></a><span class="k">class</span><span class="w"> </span><span class="nc">Stack</span><span class="p">(</span><span class="n">DoublyLinkedList</span><span class="p">):</span>
-</span><span id="Stack-6"><a href="#Stack-6"><span class="linenos"> 6</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
-</span><span id="Stack-7"><a href="#Stack-7"><span class="linenos"> 7</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
-</span><span id="Stack-8"><a href="#Stack-8"><span class="linenos"> 8</span></a>
-</span><span id="Stack-9"><a href="#Stack-9"><span class="linenos"> 9</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="Stack-10"><a href="#Stack-10"><span class="linenos">10</span></a>        <span class="n">last_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_node</span>
-</span><span id="Stack-11"><a href="#Stack-11"><span class="linenos">11</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">-=</span> <span class="mi">1</span>
-</span><span id="Stack-12"><a href="#Stack-12"><span class="linenos">12</span></a>
-</span><span id="Stack-13"><a href="#Stack-13"><span class="linenos">13</span></a>        <span class="k">if</span> <span class="n">last_node</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">first_node</span><span class="p">:</span>
-</span><span id="Stack-14"><a href="#Stack-14"><span class="linenos">14</span></a>            <span class="n">second_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">first_node</span><span class="o">.</span><span class="n">next_node</span>
-</span><span id="Stack-15"><a href="#Stack-15"><span class="linenos">15</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">first_node</span> <span class="o">=</span> <span class="n">second_node</span>
-</span><span id="Stack-16"><a href="#Stack-16"><span class="linenos">16</span></a>        <span class="k">else</span><span class="p">:</span>
-</span><span id="Stack-17"><a href="#Stack-17"><span class="linenos">17</span></a>            <span class="n">last_node</span><span class="o">.</span><span class="n">prev_node</span><span class="o">.</span><span class="n">next_node</span> <span class="o">=</span> <span class="n">last_node</span><span class="o">.</span><span class="n">next_node</span>
-</span><span id="Stack-18"><a href="#Stack-18"><span class="linenos">18</span></a>
-</span><span id="Stack-19"><a href="#Stack-19"><span class="linenos">19</span></a>        <span class="k">if</span> <span class="n">last_node</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_node</span><span class="p">:</span>
-</span><span id="Stack-20"><a href="#Stack-20"><span class="linenos">20</span></a>            <span class="n">penult_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_node</span><span class="o">.</span><span class="n">prev_node</span>
-</span><span id="Stack-21"><a href="#Stack-21"><span class="linenos">21</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">last_node</span> <span class="o">=</span> <span class="n">penult_node</span>
-</span><span id="Stack-22"><a href="#Stack-22"><span class="linenos">22</span></a>        <span class="k">else</span><span class="p">:</span>
-</span><span id="Stack-23"><a href="#Stack-23"><span class="linenos">23</span></a>            <span class="n">last_node</span><span class="o">.</span><span class="n">next_node</span><span class="o">.</span><span class="n">prev_node</span> <span class="o">=</span> <span class="n">last_node</span><span class="o">.</span><span class="n">prev_node</span>
-</span><span id="Stack-24"><a href="#Stack-24"><span class="linenos">24</span></a>
-</span><span id="Stack-25"><a href="#Stack-25"><span class="linenos">25</span></a>        <span class="k">return</span> <span class="n">last_node</span>
+</span><span id="Stack-6"><a href="#Stack-6"><span class="linenos"> 6</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Stack-7"><a href="#Stack-7"><span class="linenos"> 7</span></a><span class="sd">    Stack is a data structure that follows the Last In First Out (LIFO) principle.</span>
+</span><span id="Stack-8"><a href="#Stack-8"><span class="linenos"> 8</span></a><span class="sd">    It allows for adding and removing elements from the same end, known as the top of the stack.</span>
+</span><span id="Stack-9"><a href="#Stack-9"><span class="linenos"> 9</span></a>
+</span><span id="Stack-10"><a href="#Stack-10"><span class="linenos">10</span></a><span class="sd">    This implementation uses a doubly linked list to manage the elements, providing efficient</span>
+</span><span id="Stack-11"><a href="#Stack-11"><span class="linenos">11</span></a><span class="sd">    operations for pushing and popping items. The stack maintains a reference to the last node,</span>
+</span><span id="Stack-12"><a href="#Stack-12"><span class="linenos">12</span></a><span class="sd">    which represents the top of the stack, and tracks the size of the stack.</span>
+</span><span id="Stack-13"><a href="#Stack-13"><span class="linenos">13</span></a>
+</span><span id="Stack-14"><a href="#Stack-14"><span class="linenos">14</span></a><span class="sd">    Attributes:</span>
+</span><span id="Stack-15"><a href="#Stack-15"><span class="linenos">15</span></a><span class="sd">        size (int): The number of elements currently in the stack.</span>
+</span><span id="Stack-16"><a href="#Stack-16"><span class="linenos">16</span></a><span class="sd">        first_node (Node | None): The first node in the stack.</span>
+</span><span id="Stack-17"><a href="#Stack-17"><span class="linenos">17</span></a><span class="sd">        last_node (Node | None): The last node in the stack.</span>
+</span><span id="Stack-18"><a href="#Stack-18"><span class="linenos">18</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="Stack-19"><a href="#Stack-19"><span class="linenos">19</span></a>
+</span><span id="Stack-20"><a href="#Stack-20"><span class="linenos">20</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+</span><span id="Stack-21"><a href="#Stack-21"><span class="linenos">21</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Stack-22"><a href="#Stack-22"><span class="linenos">22</span></a><span class="sd">        Pushes an item onto the top of the stack.</span>
+</span><span id="Stack-23"><a href="#Stack-23"><span class="linenos">23</span></a>
+</span><span id="Stack-24"><a href="#Stack-24"><span class="linenos">24</span></a><span class="sd">        Args:</span>
+</span><span id="Stack-25"><a href="#Stack-25"><span class="linenos">25</span></a><span class="sd">            item (Any): The value to be added to the stack.</span>
+</span><span id="Stack-26"><a href="#Stack-26"><span class="linenos">26</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Stack-27"><a href="#Stack-27"><span class="linenos">27</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+</span><span id="Stack-28"><a href="#Stack-28"><span class="linenos">28</span></a>
+</span><span id="Stack-29"><a href="#Stack-29"><span class="linenos">29</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="Stack-30"><a href="#Stack-30"><span class="linenos">30</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Stack-31"><a href="#Stack-31"><span class="linenos">31</span></a><span class="sd">        Pops the top item from the stack.</span>
+</span><span id="Stack-32"><a href="#Stack-32"><span class="linenos">32</span></a><span class="sd">        Removes the last node from the stack and returns it.</span>
+</span><span id="Stack-33"><a href="#Stack-33"><span class="linenos">33</span></a>
+</span><span id="Stack-34"><a href="#Stack-34"><span class="linenos">34</span></a><span class="sd">        Returns:</span>
+</span><span id="Stack-35"><a href="#Stack-35"><span class="linenos">35</span></a><span class="sd">            Node: The node that was removed from the stack.</span>
+</span><span id="Stack-36"><a href="#Stack-36"><span class="linenos">36</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Stack-37"><a href="#Stack-37"><span class="linenos">37</span></a>        <span class="n">last_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_node</span>
+</span><span id="Stack-38"><a href="#Stack-38"><span class="linenos">38</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">-=</span> <span class="mi">1</span>
+</span><span id="Stack-39"><a href="#Stack-39"><span class="linenos">39</span></a>
+</span><span id="Stack-40"><a href="#Stack-40"><span class="linenos">40</span></a>        <span class="k">if</span> <span class="n">last_node</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">first_node</span><span class="p">:</span>
+</span><span id="Stack-41"><a href="#Stack-41"><span class="linenos">41</span></a>            <span class="n">second_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">first_node</span><span class="o">.</span><span class="n">next_node</span>
+</span><span id="Stack-42"><a href="#Stack-42"><span class="linenos">42</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">first_node</span> <span class="o">=</span> <span class="n">second_node</span>
+</span><span id="Stack-43"><a href="#Stack-43"><span class="linenos">43</span></a>        <span class="k">else</span><span class="p">:</span>
+</span><span id="Stack-44"><a href="#Stack-44"><span class="linenos">44</span></a>            <span class="n">last_node</span><span class="o">.</span><span class="n">prev_node</span><span class="o">.</span><span class="n">next_node</span> <span class="o">=</span> <span class="n">last_node</span><span class="o">.</span><span class="n">next_node</span>
+</span><span id="Stack-45"><a href="#Stack-45"><span class="linenos">45</span></a>
+</span><span id="Stack-46"><a href="#Stack-46"><span class="linenos">46</span></a>        <span class="k">if</span> <span class="n">last_node</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_node</span><span class="p">:</span>
+</span><span id="Stack-47"><a href="#Stack-47"><span class="linenos">47</span></a>            <span class="n">penult_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_node</span><span class="o">.</span><span class="n">prev_node</span>
+</span><span id="Stack-48"><a href="#Stack-48"><span class="linenos">48</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">last_node</span> <span class="o">=</span> <span class="n">penult_node</span>
+</span><span id="Stack-49"><a href="#Stack-49"><span class="linenos">49</span></a>        <span class="k">else</span><span class="p">:</span>
+</span><span id="Stack-50"><a href="#Stack-50"><span class="linenos">50</span></a>            <span class="n">last_node</span><span class="o">.</span><span class="n">next_node</span><span class="o">.</span><span class="n">prev_node</span> <span class="o">=</span> <span class="n">last_node</span><span class="o">.</span><span class="n">prev_node</span>
+</span><span id="Stack-51"><a href="#Stack-51"><span class="linenos">51</span></a>
+</span><span id="Stack-52"><a href="#Stack-52"><span class="linenos">52</span></a>        <span class="k">return</span> <span class="n">last_node</span>
 </span></pre></div>
 
 
-    
+            <div class="docstring"><p>Stack is a data structure that follows the Last In First Out (LIFO) principle.
+It allows for adding and removing elements from the same end, known as the top of the stack.</p>
+
+<p>This implementation uses a doubly linked list to manage the elements, providing efficient
+operations for pushing and popping items. The stack maintains a reference to the last node,
+which represents the top of the stack, and tracks the size of the stack.</p>
+
+<p>Attributes:
+    size (int): The number of elements currently in the stack.
+    first_node (Node | None): The first node in the stack.
+    last_node (Node | None): The last node in the stack.</p>
+</div>
+
 
                             <div id="Stack.push" class="classattr">
                                         <input id="Stack.push-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
@@ -139,12 +205,23 @@ data_structures<wbr>.<a href="./../src.html">src</a><wbr>.stack    </h1>
 
     </div>
     <a class="headerlink" href="#Stack.push"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Stack.push-6"><a href="#Stack.push-6"><span class="linenos">6</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
-</span><span id="Stack.push-7"><a href="#Stack.push-7"><span class="linenos">7</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Stack.push-20"><a href="#Stack.push-20"><span class="linenos">20</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+</span><span id="Stack.push-21"><a href="#Stack.push-21"><span class="linenos">21</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Stack.push-22"><a href="#Stack.push-22"><span class="linenos">22</span></a><span class="sd">        Pushes an item onto the top of the stack.</span>
+</span><span id="Stack.push-23"><a href="#Stack.push-23"><span class="linenos">23</span></a>
+</span><span id="Stack.push-24"><a href="#Stack.push-24"><span class="linenos">24</span></a><span class="sd">        Args:</span>
+</span><span id="Stack.push-25"><a href="#Stack.push-25"><span class="linenos">25</span></a><span class="sd">            item (Any): The value to be added to the stack.</span>
+</span><span id="Stack.push-26"><a href="#Stack.push-26"><span class="linenos">26</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Stack.push-27"><a href="#Stack.push-27"><span class="linenos">27</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
 </span></pre></div>
 
 
-    
+            <div class="docstring"><p>Pushes an item onto the top of the stack.</p>
+
+<p>Args:
+    item (Any): The value to be added to the stack.</p>
+</div>
+
 
                             </div>
                             <div id="Stack.pop" class="classattr">
@@ -158,34 +235,48 @@ data_structures<wbr>.<a href="./../src.html">src</a><wbr>.stack    </h1>
 
     </div>
     <a class="headerlink" href="#Stack.pop"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Stack.pop-9"><a href="#Stack.pop-9"><span class="linenos"> 9</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="Stack.pop-10"><a href="#Stack.pop-10"><span class="linenos">10</span></a>        <span class="n">last_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_node</span>
-</span><span id="Stack.pop-11"><a href="#Stack.pop-11"><span class="linenos">11</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">-=</span> <span class="mi">1</span>
-</span><span id="Stack.pop-12"><a href="#Stack.pop-12"><span class="linenos">12</span></a>
-</span><span id="Stack.pop-13"><a href="#Stack.pop-13"><span class="linenos">13</span></a>        <span class="k">if</span> <span class="n">last_node</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">first_node</span><span class="p">:</span>
-</span><span id="Stack.pop-14"><a href="#Stack.pop-14"><span class="linenos">14</span></a>            <span class="n">second_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">first_node</span><span class="o">.</span><span class="n">next_node</span>
-</span><span id="Stack.pop-15"><a href="#Stack.pop-15"><span class="linenos">15</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">first_node</span> <span class="o">=</span> <span class="n">second_node</span>
-</span><span id="Stack.pop-16"><a href="#Stack.pop-16"><span class="linenos">16</span></a>        <span class="k">else</span><span class="p">:</span>
-</span><span id="Stack.pop-17"><a href="#Stack.pop-17"><span class="linenos">17</span></a>            <span class="n">last_node</span><span class="o">.</span><span class="n">prev_node</span><span class="o">.</span><span class="n">next_node</span> <span class="o">=</span> <span class="n">last_node</span><span class="o">.</span><span class="n">next_node</span>
-</span><span id="Stack.pop-18"><a href="#Stack.pop-18"><span class="linenos">18</span></a>
-</span><span id="Stack.pop-19"><a href="#Stack.pop-19"><span class="linenos">19</span></a>        <span class="k">if</span> <span class="n">last_node</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_node</span><span class="p">:</span>
-</span><span id="Stack.pop-20"><a href="#Stack.pop-20"><span class="linenos">20</span></a>            <span class="n">penult_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_node</span><span class="o">.</span><span class="n">prev_node</span>
-</span><span id="Stack.pop-21"><a href="#Stack.pop-21"><span class="linenos">21</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">last_node</span> <span class="o">=</span> <span class="n">penult_node</span>
-</span><span id="Stack.pop-22"><a href="#Stack.pop-22"><span class="linenos">22</span></a>        <span class="k">else</span><span class="p">:</span>
-</span><span id="Stack.pop-23"><a href="#Stack.pop-23"><span class="linenos">23</span></a>            <span class="n">last_node</span><span class="o">.</span><span class="n">next_node</span><span class="o">.</span><span class="n">prev_node</span> <span class="o">=</span> <span class="n">last_node</span><span class="o">.</span><span class="n">prev_node</span>
-</span><span id="Stack.pop-24"><a href="#Stack.pop-24"><span class="linenos">24</span></a>
-</span><span id="Stack.pop-25"><a href="#Stack.pop-25"><span class="linenos">25</span></a>        <span class="k">return</span> <span class="n">last_node</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Stack.pop-29"><a href="#Stack.pop-29"><span class="linenos">29</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="Stack.pop-30"><a href="#Stack.pop-30"><span class="linenos">30</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Stack.pop-31"><a href="#Stack.pop-31"><span class="linenos">31</span></a><span class="sd">        Pops the top item from the stack.</span>
+</span><span id="Stack.pop-32"><a href="#Stack.pop-32"><span class="linenos">32</span></a><span class="sd">        Removes the last node from the stack and returns it.</span>
+</span><span id="Stack.pop-33"><a href="#Stack.pop-33"><span class="linenos">33</span></a>
+</span><span id="Stack.pop-34"><a href="#Stack.pop-34"><span class="linenos">34</span></a><span class="sd">        Returns:</span>
+</span><span id="Stack.pop-35"><a href="#Stack.pop-35"><span class="linenos">35</span></a><span class="sd">            Node: The node that was removed from the stack.</span>
+</span><span id="Stack.pop-36"><a href="#Stack.pop-36"><span class="linenos">36</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Stack.pop-37"><a href="#Stack.pop-37"><span class="linenos">37</span></a>        <span class="n">last_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_node</span>
+</span><span id="Stack.pop-38"><a href="#Stack.pop-38"><span class="linenos">38</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">-=</span> <span class="mi">1</span>
+</span><span id="Stack.pop-39"><a href="#Stack.pop-39"><span class="linenos">39</span></a>
+</span><span id="Stack.pop-40"><a href="#Stack.pop-40"><span class="linenos">40</span></a>        <span class="k">if</span> <span class="n">last_node</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">first_node</span><span class="p">:</span>
+</span><span id="Stack.pop-41"><a href="#Stack.pop-41"><span class="linenos">41</span></a>            <span class="n">second_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">first_node</span><span class="o">.</span><span class="n">next_node</span>
+</span><span id="Stack.pop-42"><a href="#Stack.pop-42"><span class="linenos">42</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">first_node</span> <span class="o">=</span> <span class="n">second_node</span>
+</span><span id="Stack.pop-43"><a href="#Stack.pop-43"><span class="linenos">43</span></a>        <span class="k">else</span><span class="p">:</span>
+</span><span id="Stack.pop-44"><a href="#Stack.pop-44"><span class="linenos">44</span></a>            <span class="n">last_node</span><span class="o">.</span><span class="n">prev_node</span><span class="o">.</span><span class="n">next_node</span> <span class="o">=</span> <span class="n">last_node</span><span class="o">.</span><span class="n">next_node</span>
+</span><span id="Stack.pop-45"><a href="#Stack.pop-45"><span class="linenos">45</span></a>
+</span><span id="Stack.pop-46"><a href="#Stack.pop-46"><span class="linenos">46</span></a>        <span class="k">if</span> <span class="n">last_node</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_node</span><span class="p">:</span>
+</span><span id="Stack.pop-47"><a href="#Stack.pop-47"><span class="linenos">47</span></a>            <span class="n">penult_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_node</span><span class="o">.</span><span class="n">prev_node</span>
+</span><span id="Stack.pop-48"><a href="#Stack.pop-48"><span class="linenos">48</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">last_node</span> <span class="o">=</span> <span class="n">penult_node</span>
+</span><span id="Stack.pop-49"><a href="#Stack.pop-49"><span class="linenos">49</span></a>        <span class="k">else</span><span class="p">:</span>
+</span><span id="Stack.pop-50"><a href="#Stack.pop-50"><span class="linenos">50</span></a>            <span class="n">last_node</span><span class="o">.</span><span class="n">next_node</span><span class="o">.</span><span class="n">prev_node</span> <span class="o">=</span> <span class="n">last_node</span><span class="o">.</span><span class="n">prev_node</span>
+</span><span id="Stack.pop-51"><a href="#Stack.pop-51"><span class="linenos">51</span></a>
+</span><span id="Stack.pop-52"><a href="#Stack.pop-52"><span class="linenos">52</span></a>        <span class="k">return</span> <span class="n">last_node</span>
 </span></pre></div>
 
 
-    
+            <div class="docstring"><p>Pops the top item from the stack.
+Removes the last node from the stack and returns it.</p>
+
+<p>Returns:
+    Node: The node that was removed from the stack.</p>
+</div>
+
 
                             </div>
                             <div class="inherited">
                                 <h5>Inherited Members</h5>
                                 <dl>
                                     <div><dt><a href="doubly_linked_list.html#DoublyLinkedList">data_structures.src.doubly_linked_list.DoublyLinkedList</a></dt>
-                                <dd id="Stack.size" class="variable"><a href="doubly_linked_list.html#DoublyLinkedList.size">size</a></dd>
+                                <dd id="Stack.__init__" class="function"><a href="doubly_linked_list.html#DoublyLinkedList.__init__">DoublyLinkedList</a></dd>
+                <dd id="Stack.size" class="variable"><a href="doubly_linked_list.html#DoublyLinkedList.size">size</a></dd>
                 <dd id="Stack.first_node" class="variable"><a href="doubly_linked_list.html#DoublyLinkedList.first_node">first_node</a></dd>
                 <dd id="Stack.last_node" class="variable"><a href="doubly_linked_list.html#DoublyLinkedList.last_node">last_node</a></dd>
                 <dd id="Stack.append" class="function"><a href="doubly_linked_list.html#DoublyLinkedList.append">append</a></dd>

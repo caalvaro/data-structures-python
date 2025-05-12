@@ -81,73 +81,109 @@ data_structures<wbr>.<a href="./../src.html">src</a><wbr>.hashset    </h1>
 
                         <label class="view-source-button" for="mod-hashset-view-source"><span>View Source</span></label>
 
-                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos"> 1</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.doubly_linked_list</span><span class="w"> </span><span class="kn">import</span> <span class="n">DoublyLinkedList</span>
-</span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a>
-</span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a>
-</span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a><span class="k">class</span><span class="w"> </span><span class="nc">HashSet</span><span class="p">:</span>
-</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">capacity</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
-</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">buckets</span> <span class="o">=</span> <span class="p">[</span><span class="n">DoublyLinkedList</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">capacity</span><span class="p">)]</span>
-</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">capacity</span> <span class="o">=</span> <span class="n">capacity</span>
-</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a>
-</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">hash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
-</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a>        <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">capacity</span>
-</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>
-</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
-</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a>        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>  <span class="c1"># if self.__contains__(key):</span>
-</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a>            <span class="k">return</span>
-</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>
-</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a>        <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hash</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>        <span class="n">linked_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buckets</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
-</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>        <span class="n">linked_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">+=</span> <span class="mi">1</span>
-</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>
-</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
-</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>        <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
-</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a>            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Key is not in the set.&quot;</span><span class="p">)</span>
-</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>
-</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a>        <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hash</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a>        <span class="n">linked_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buckets</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
-</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a>
-</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a>        <span class="n">linked_list</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">-=</span> <span class="mi">1</span>
-</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a>
-</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
-</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;if key in conjunto&quot;&quot;&quot;</span>
-</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a>        <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hash</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a>        <span class="n">linked_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buckets</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
-</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a>
-</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a>        <span class="k">return</span> <span class="n">linked_list</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-</span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a>
-</span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
-</span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a>
-</span><span id="L-42"><a href="#L-42"><span class="linenos">42</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">print_lists</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="L-43"><a href="#L-43"><span class="linenos">43</span></a>        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-</span><span id="L-44"><a href="#L-44"><span class="linenos">44</span></a>            <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; -&gt; &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">linked_list</span><span class="p">)</span>
-</span><span id="L-45"><a href="#L-45"><span class="linenos">45</span></a>            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">linked_list</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">buckets</span><span class="p">)</span>
-</span><span id="L-46"><a href="#L-46"><span class="linenos">46</span></a>        <span class="p">)</span>
-</span><span id="L-47"><a href="#L-47"><span class="linenos">47</span></a>
-</span><span id="L-48"><a href="#L-48"><span class="linenos">48</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="L-49"><a href="#L-49"><span class="linenos">49</span></a>        <span class="n">elements</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># [25, 35, 22, 59, 61, 21, 26, 54]</span>
-</span><span id="L-50"><a href="#L-50"><span class="linenos">50</span></a>        <span class="k">for</span> <span class="n">linked_list</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buckets</span><span class="p">:</span>
-</span><span id="L-51"><a href="#L-51"><span class="linenos">51</span></a>            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">linked_list</span><span class="p">)):</span>
-</span><span id="L-52"><a href="#L-52"><span class="linenos">52</span></a>                <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">linked_list</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-</span><span id="L-53"><a href="#L-53"><span class="linenos">53</span></a>
-</span><span id="L-54"><a href="#L-54"><span class="linenos">54</span></a>        <span class="k">return</span> <span class="s2">&quot;{&quot;</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">element</span><span class="o">.</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;}&quot;</span>
-</span><span id="L-55"><a href="#L-55"><span class="linenos">55</span></a>
-</span><span id="L-56"><a href="#L-56"><span class="linenos">56</span></a>
-</span><span id="L-57"><a href="#L-57"><span class="linenos">57</span></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-</span><span id="L-58"><a href="#L-58"><span class="linenos">58</span></a>    <span class="kn">from</span><span class="w"> </span><span class="nn">random</span><span class="w"> </span><span class="kn">import</span> <span class="n">random</span>
-</span><span id="L-59"><a href="#L-59"><span class="linenos">59</span></a>
-</span><span id="L-60"><a href="#L-60"><span class="linenos">60</span></a>    <span class="n">hashset</span> <span class="o">=</span> <span class="n">HashSet</span><span class="p">()</span>
-</span><span id="L-61"><a href="#L-61"><span class="linenos">61</span></a>
-</span><span id="L-62"><a href="#L-62"><span class="linenos">62</span></a>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">):</span>
-</span><span id="L-63"><a href="#L-63"><span class="linenos">63</span></a>        <span class="n">hashset</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">random</span><span class="p">(),</span> <span class="mi">2</span><span class="p">))</span>
-</span><span id="L-64"><a href="#L-64"><span class="linenos">64</span></a>
-</span><span id="L-65"><a href="#L-65"><span class="linenos">65</span></a>    <span class="nb">print</span><span class="p">(</span><span class="n">hashset</span><span class="o">.</span><span class="n">print_lists</span><span class="p">())</span>
-</span><span id="L-66"><a href="#L-66"><span class="linenos">66</span></a>    <span class="nb">print</span><span class="p">()</span>
-</span><span id="L-67"><a href="#L-67"><span class="linenos">67</span></a>    <span class="nb">print</span><span class="p">(</span><span class="n">hashset</span><span class="p">)</span>
+                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos">  1</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.doubly_linked_list</span><span class="w"> </span><span class="kn">import</span> <span class="n">DoublyLinkedList</span>
+</span><span id="L-2"><a href="#L-2"><span class="linenos">  2</span></a>
+</span><span id="L-3"><a href="#L-3"><span class="linenos">  3</span></a>
+</span><span id="L-4"><a href="#L-4"><span class="linenos">  4</span></a><span class="k">class</span><span class="w"> </span><span class="nc">HashSet</span><span class="p">:</span>
+</span><span id="L-5"><a href="#L-5"><span class="linenos">  5</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-6"><a href="#L-6"><span class="linenos">  6</span></a><span class="sd">    HashSet is a data structure that implements a set using a hash table.</span>
+</span><span id="L-7"><a href="#L-7"><span class="linenos">  7</span></a><span class="sd">    It uses a list of linked lists to store the elements in the set.</span>
+</span><span id="L-8"><a href="#L-8"><span class="linenos">  8</span></a><span class="sd">    The hash table is implemented using a list of linked lists, where each linked list</span>
+</span><span id="L-9"><a href="#L-9"><span class="linenos">  9</span></a><span class="sd">    is a bucket that stores the elements that hash to the same index.</span>
+</span><span id="L-10"><a href="#L-10"><span class="linenos"> 10</span></a>
+</span><span id="L-11"><a href="#L-11"><span class="linenos"> 11</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-12"><a href="#L-12"><span class="linenos"> 12</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">capacity</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+</span><span id="L-13"><a href="#L-13"><span class="linenos"> 13</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-14"><a href="#L-14"><span class="linenos"> 14</span></a><span class="sd">        Initializes the HashSet with a given capacity.</span>
+</span><span id="L-15"><a href="#L-15"><span class="linenos"> 15</span></a><span class="sd">        Args:</span>
+</span><span id="L-16"><a href="#L-16"><span class="linenos"> 16</span></a><span class="sd">            buckets (list[DoublyLinkedList]): The list of buckets for the HashSet.</span>
+</span><span id="L-17"><a href="#L-17"><span class="linenos"> 17</span></a><span class="sd">            capacity (int): The initial capacity of the HashSet.</span>
+</span><span id="L-18"><a href="#L-18"><span class="linenos"> 18</span></a><span class="sd">            size (int): The number of elements in the HashSet.</span>
+</span><span id="L-19"><a href="#L-19"><span class="linenos"> 19</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="L-20"><a href="#L-20"><span class="linenos"> 20</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">buckets</span> <span class="o">=</span> <span class="p">[</span><span class="n">DoublyLinkedList</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">capacity</span><span class="p">)]</span>
+</span><span id="L-21"><a href="#L-21"><span class="linenos"> 21</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">capacity</span> <span class="o">=</span> <span class="n">capacity</span>
+</span><span id="L-22"><a href="#L-22"><span class="linenos"> 22</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span id="L-23"><a href="#L-23"><span class="linenos"> 23</span></a>
+</span><span id="L-24"><a href="#L-24"><span class="linenos"> 24</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">hash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+</span><span id="L-25"><a href="#L-25"><span class="linenos"> 25</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-26"><a href="#L-26"><span class="linenos"> 26</span></a><span class="sd">        Hash function that computes the index of the bucket for a given key.</span>
+</span><span id="L-27"><a href="#L-27"><span class="linenos"> 27</span></a><span class="sd">        Args:</span>
+</span><span id="L-28"><a href="#L-28"><span class="linenos"> 28</span></a><span class="sd">            key: The key to be hashed.</span>
+</span><span id="L-29"><a href="#L-29"><span class="linenos"> 29</span></a><span class="sd">        Returns:</span>
+</span><span id="L-30"><a href="#L-30"><span class="linenos"> 30</span></a><span class="sd">            Porcentage of the key in the capacity of the HashSet.</span>
+</span><span id="L-31"><a href="#L-31"><span class="linenos"> 31</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="L-32"><a href="#L-32"><span class="linenos"> 32</span></a>        <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">capacity</span>
+</span><span id="L-33"><a href="#L-33"><span class="linenos"> 33</span></a>
+</span><span id="L-34"><a href="#L-34"><span class="linenos"> 34</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+</span><span id="L-35"><a href="#L-35"><span class="linenos"> 35</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-36"><a href="#L-36"><span class="linenos"> 36</span></a><span class="sd">        Adds a key to the HashSet.</span>
+</span><span id="L-37"><a href="#L-37"><span class="linenos"> 37</span></a>
+</span><span id="L-38"><a href="#L-38"><span class="linenos"> 38</span></a><span class="sd">        Args:</span>
+</span><span id="L-39"><a href="#L-39"><span class="linenos"> 39</span></a><span class="sd">            key: The key to be added to the HashSet.</span>
+</span><span id="L-40"><a href="#L-40"><span class="linenos"> 40</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="L-41"><a href="#L-41"><span class="linenos"> 41</span></a>        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>  <span class="c1"># if self.__contains__(key):</span>
+</span><span id="L-42"><a href="#L-42"><span class="linenos"> 42</span></a>            <span class="k">return</span>
+</span><span id="L-43"><a href="#L-43"><span class="linenos"> 43</span></a>
+</span><span id="L-44"><a href="#L-44"><span class="linenos"> 44</span></a>        <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hash</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+</span><span id="L-45"><a href="#L-45"><span class="linenos"> 45</span></a>        <span class="n">linked_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buckets</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+</span><span id="L-46"><a href="#L-46"><span class="linenos"> 46</span></a>        <span class="n">linked_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+</span><span id="L-47"><a href="#L-47"><span class="linenos"> 47</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">+=</span> <span class="mi">1</span>
+</span><span id="L-48"><a href="#L-48"><span class="linenos"> 48</span></a>
+</span><span id="L-49"><a href="#L-49"><span class="linenos"> 49</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+</span><span id="L-50"><a href="#L-50"><span class="linenos"> 50</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-51"><a href="#L-51"><span class="linenos"> 51</span></a><span class="sd">        Removes a key from the HashSet.</span>
+</span><span id="L-52"><a href="#L-52"><span class="linenos"> 52</span></a>
+</span><span id="L-53"><a href="#L-53"><span class="linenos"> 53</span></a><span class="sd">        Args:</span>
+</span><span id="L-54"><a href="#L-54"><span class="linenos"> 54</span></a><span class="sd">            key: The key to be removed from the HashSet.</span>
+</span><span id="L-55"><a href="#L-55"><span class="linenos"> 55</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="L-56"><a href="#L-56"><span class="linenos"> 56</span></a>        <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+</span><span id="L-57"><a href="#L-57"><span class="linenos"> 57</span></a>            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Key is not in the set.&quot;</span><span class="p">)</span>
+</span><span id="L-58"><a href="#L-58"><span class="linenos"> 58</span></a>
+</span><span id="L-59"><a href="#L-59"><span class="linenos"> 59</span></a>        <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hash</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+</span><span id="L-60"><a href="#L-60"><span class="linenos"> 60</span></a>        <span class="n">linked_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buckets</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+</span><span id="L-61"><a href="#L-61"><span class="linenos"> 61</span></a>
+</span><span id="L-62"><a href="#L-62"><span class="linenos"> 62</span></a>        <span class="n">linked_list</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+</span><span id="L-63"><a href="#L-63"><span class="linenos"> 63</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">-=</span> <span class="mi">1</span>
+</span><span id="L-64"><a href="#L-64"><span class="linenos"> 64</span></a>
+</span><span id="L-65"><a href="#L-65"><span class="linenos"> 65</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+</span><span id="L-66"><a href="#L-66"><span class="linenos"> 66</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;if key in conjunto&quot;&quot;&quot;</span>
+</span><span id="L-67"><a href="#L-67"><span class="linenos"> 67</span></a>        <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hash</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+</span><span id="L-68"><a href="#L-68"><span class="linenos"> 68</span></a>        <span class="n">linked_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buckets</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+</span><span id="L-69"><a href="#L-69"><span class="linenos"> 69</span></a>
+</span><span id="L-70"><a href="#L-70"><span class="linenos"> 70</span></a>        <span class="k">return</span> <span class="n">linked_list</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+</span><span id="L-71"><a href="#L-71"><span class="linenos"> 71</span></a>
+</span><span id="L-72"><a href="#L-72"><span class="linenos"> 72</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="L-73"><a href="#L-73"><span class="linenos"> 73</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the number of elements in the HashSet.&quot;&quot;&quot;</span>
+</span><span id="L-74"><a href="#L-74"><span class="linenos"> 74</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
+</span><span id="L-75"><a href="#L-75"><span class="linenos"> 75</span></a>
+</span><span id="L-76"><a href="#L-76"><span class="linenos"> 76</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">print_lists</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="L-77"><a href="#L-77"><span class="linenos"> 77</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot; Prints the contents of each bucket in the HashSet.&quot;&quot;&quot;</span>
+</span><span id="L-78"><a href="#L-78"><span class="linenos"> 78</span></a>        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+</span><span id="L-79"><a href="#L-79"><span class="linenos"> 79</span></a>            <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; -&gt; &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">linked_list</span><span class="p">)</span>
+</span><span id="L-80"><a href="#L-80"><span class="linenos"> 80</span></a>            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">linked_list</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">buckets</span><span class="p">)</span>
+</span><span id="L-81"><a href="#L-81"><span class="linenos"> 81</span></a>        <span class="p">)</span>
+</span><span id="L-82"><a href="#L-82"><span class="linenos"> 82</span></a>
+</span><span id="L-83"><a href="#L-83"><span class="linenos"> 83</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="L-84"><a href="#L-84"><span class="linenos"> 84</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a string representation of the HashSet.&quot;&quot;&quot;</span>
+</span><span id="L-85"><a href="#L-85"><span class="linenos"> 85</span></a>        <span class="n">elements</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># [25, 35, 22, 59, 61, 21, 26, 54]</span>
+</span><span id="L-86"><a href="#L-86"><span class="linenos"> 86</span></a>        <span class="k">for</span> <span class="n">linked_list</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buckets</span><span class="p">:</span>
+</span><span id="L-87"><a href="#L-87"><span class="linenos"> 87</span></a>            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">linked_list</span><span class="p">)):</span>
+</span><span id="L-88"><a href="#L-88"><span class="linenos"> 88</span></a>                <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">linked_list</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</span><span id="L-89"><a href="#L-89"><span class="linenos"> 89</span></a>
+</span><span id="L-90"><a href="#L-90"><span class="linenos"> 90</span></a>        <span class="k">return</span> <span class="s2">&quot;{&quot;</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">element</span><span class="o">.</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;}&quot;</span>
+</span><span id="L-91"><a href="#L-91"><span class="linenos"> 91</span></a>
+</span><span id="L-92"><a href="#L-92"><span class="linenos"> 92</span></a>
+</span><span id="L-93"><a href="#L-93"><span class="linenos"> 93</span></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+</span><span id="L-94"><a href="#L-94"><span class="linenos"> 94</span></a>    <span class="kn">from</span><span class="w"> </span><span class="nn">random</span><span class="w"> </span><span class="kn">import</span> <span class="n">random</span>
+</span><span id="L-95"><a href="#L-95"><span class="linenos"> 95</span></a>
+</span><span id="L-96"><a href="#L-96"><span class="linenos"> 96</span></a>    <span class="n">hashset</span> <span class="o">=</span> <span class="n">HashSet</span><span class="p">()</span>
+</span><span id="L-97"><a href="#L-97"><span class="linenos"> 97</span></a>
+</span><span id="L-98"><a href="#L-98"><span class="linenos"> 98</span></a>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">):</span>
+</span><span id="L-99"><a href="#L-99"><span class="linenos"> 99</span></a>        <span class="n">hashset</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">random</span><span class="p">(),</span> <span class="mi">2</span><span class="p">))</span>
+</span><span id="L-100"><a href="#L-100"><span class="linenos">100</span></a>
+</span><span id="L-101"><a href="#L-101"><span class="linenos">101</span></a>    <span class="nb">print</span><span class="p">(</span><span class="n">hashset</span><span class="o">.</span><span class="n">print_lists</span><span class="p">())</span>
+</span><span id="L-102"><a href="#L-102"><span class="linenos">102</span></a>    <span class="nb">print</span><span class="p">()</span>
+</span><span id="L-103"><a href="#L-103"><span class="linenos">103</span></a>    <span class="nb">print</span><span class="p">(</span><span class="n">hashset</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -164,60 +200,101 @@ data_structures<wbr>.<a href="./../src.html">src</a><wbr>.hashset    </h1>
     </div>
     <a class="headerlink" href="#HashSet"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="HashSet-5"><a href="#HashSet-5"><span class="linenos"> 5</span></a><span class="k">class</span><span class="w"> </span><span class="nc">HashSet</span><span class="p">:</span>
-</span><span id="HashSet-6"><a href="#HashSet-6"><span class="linenos"> 6</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">capacity</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
-</span><span id="HashSet-7"><a href="#HashSet-7"><span class="linenos"> 7</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">buckets</span> <span class="o">=</span> <span class="p">[</span><span class="n">DoublyLinkedList</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">capacity</span><span class="p">)]</span>
-</span><span id="HashSet-8"><a href="#HashSet-8"><span class="linenos"> 8</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">capacity</span> <span class="o">=</span> <span class="n">capacity</span>
-</span><span id="HashSet-9"><a href="#HashSet-9"><span class="linenos"> 9</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span id="HashSet-10"><a href="#HashSet-10"><span class="linenos">10</span></a>
-</span><span id="HashSet-11"><a href="#HashSet-11"><span class="linenos">11</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">hash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
-</span><span id="HashSet-12"><a href="#HashSet-12"><span class="linenos">12</span></a>        <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">capacity</span>
-</span><span id="HashSet-13"><a href="#HashSet-13"><span class="linenos">13</span></a>
-</span><span id="HashSet-14"><a href="#HashSet-14"><span class="linenos">14</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
-</span><span id="HashSet-15"><a href="#HashSet-15"><span class="linenos">15</span></a>        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>  <span class="c1"># if self.__contains__(key):</span>
-</span><span id="HashSet-16"><a href="#HashSet-16"><span class="linenos">16</span></a>            <span class="k">return</span>
-</span><span id="HashSet-17"><a href="#HashSet-17"><span class="linenos">17</span></a>
-</span><span id="HashSet-18"><a href="#HashSet-18"><span class="linenos">18</span></a>        <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hash</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-</span><span id="HashSet-19"><a href="#HashSet-19"><span class="linenos">19</span></a>        <span class="n">linked_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buckets</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
-</span><span id="HashSet-20"><a href="#HashSet-20"><span class="linenos">20</span></a>        <span class="n">linked_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-</span><span id="HashSet-21"><a href="#HashSet-21"><span class="linenos">21</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">+=</span> <span class="mi">1</span>
-</span><span id="HashSet-22"><a href="#HashSet-22"><span class="linenos">22</span></a>
-</span><span id="HashSet-23"><a href="#HashSet-23"><span class="linenos">23</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
-</span><span id="HashSet-24"><a href="#HashSet-24"><span class="linenos">24</span></a>        <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
-</span><span id="HashSet-25"><a href="#HashSet-25"><span class="linenos">25</span></a>            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Key is not in the set.&quot;</span><span class="p">)</span>
-</span><span id="HashSet-26"><a href="#HashSet-26"><span class="linenos">26</span></a>
-</span><span id="HashSet-27"><a href="#HashSet-27"><span class="linenos">27</span></a>        <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hash</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-</span><span id="HashSet-28"><a href="#HashSet-28"><span class="linenos">28</span></a>        <span class="n">linked_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buckets</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
-</span><span id="HashSet-29"><a href="#HashSet-29"><span class="linenos">29</span></a>
-</span><span id="HashSet-30"><a href="#HashSet-30"><span class="linenos">30</span></a>        <span class="n">linked_list</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-</span><span id="HashSet-31"><a href="#HashSet-31"><span class="linenos">31</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">-=</span> <span class="mi">1</span>
-</span><span id="HashSet-32"><a href="#HashSet-32"><span class="linenos">32</span></a>
-</span><span id="HashSet-33"><a href="#HashSet-33"><span class="linenos">33</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
-</span><span id="HashSet-34"><a href="#HashSet-34"><span class="linenos">34</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;if key in conjunto&quot;&quot;&quot;</span>
-</span><span id="HashSet-35"><a href="#HashSet-35"><span class="linenos">35</span></a>        <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hash</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-</span><span id="HashSet-36"><a href="#HashSet-36"><span class="linenos">36</span></a>        <span class="n">linked_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buckets</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
-</span><span id="HashSet-37"><a href="#HashSet-37"><span class="linenos">37</span></a>
-</span><span id="HashSet-38"><a href="#HashSet-38"><span class="linenos">38</span></a>        <span class="k">return</span> <span class="n">linked_list</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-</span><span id="HashSet-39"><a href="#HashSet-39"><span class="linenos">39</span></a>
-</span><span id="HashSet-40"><a href="#HashSet-40"><span class="linenos">40</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="HashSet-41"><a href="#HashSet-41"><span class="linenos">41</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
-</span><span id="HashSet-42"><a href="#HashSet-42"><span class="linenos">42</span></a>
-</span><span id="HashSet-43"><a href="#HashSet-43"><span class="linenos">43</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">print_lists</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="HashSet-44"><a href="#HashSet-44"><span class="linenos">44</span></a>        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-</span><span id="HashSet-45"><a href="#HashSet-45"><span class="linenos">45</span></a>            <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; -&gt; &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">linked_list</span><span class="p">)</span>
-</span><span id="HashSet-46"><a href="#HashSet-46"><span class="linenos">46</span></a>            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">linked_list</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">buckets</span><span class="p">)</span>
-</span><span id="HashSet-47"><a href="#HashSet-47"><span class="linenos">47</span></a>        <span class="p">)</span>
-</span><span id="HashSet-48"><a href="#HashSet-48"><span class="linenos">48</span></a>
-</span><span id="HashSet-49"><a href="#HashSet-49"><span class="linenos">49</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="HashSet-50"><a href="#HashSet-50"><span class="linenos">50</span></a>        <span class="n">elements</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># [25, 35, 22, 59, 61, 21, 26, 54]</span>
-</span><span id="HashSet-51"><a href="#HashSet-51"><span class="linenos">51</span></a>        <span class="k">for</span> <span class="n">linked_list</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buckets</span><span class="p">:</span>
-</span><span id="HashSet-52"><a href="#HashSet-52"><span class="linenos">52</span></a>            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">linked_list</span><span class="p">)):</span>
-</span><span id="HashSet-53"><a href="#HashSet-53"><span class="linenos">53</span></a>                <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">linked_list</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-</span><span id="HashSet-54"><a href="#HashSet-54"><span class="linenos">54</span></a>
-</span><span id="HashSet-55"><a href="#HashSet-55"><span class="linenos">55</span></a>        <span class="k">return</span> <span class="s2">&quot;{&quot;</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">element</span><span class="o">.</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;}&quot;</span>
+</span><span id="HashSet-6"><a href="#HashSet-6"><span class="linenos"> 6</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="HashSet-7"><a href="#HashSet-7"><span class="linenos"> 7</span></a><span class="sd">    HashSet is a data structure that implements a set using a hash table.</span>
+</span><span id="HashSet-8"><a href="#HashSet-8"><span class="linenos"> 8</span></a><span class="sd">    It uses a list of linked lists to store the elements in the set.</span>
+</span><span id="HashSet-9"><a href="#HashSet-9"><span class="linenos"> 9</span></a><span class="sd">    The hash table is implemented using a list of linked lists, where each linked list</span>
+</span><span id="HashSet-10"><a href="#HashSet-10"><span class="linenos">10</span></a><span class="sd">    is a bucket that stores the elements that hash to the same index.</span>
+</span><span id="HashSet-11"><a href="#HashSet-11"><span class="linenos">11</span></a>
+</span><span id="HashSet-12"><a href="#HashSet-12"><span class="linenos">12</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="HashSet-13"><a href="#HashSet-13"><span class="linenos">13</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">capacity</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+</span><span id="HashSet-14"><a href="#HashSet-14"><span class="linenos">14</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="HashSet-15"><a href="#HashSet-15"><span class="linenos">15</span></a><span class="sd">        Initializes the HashSet with a given capacity.</span>
+</span><span id="HashSet-16"><a href="#HashSet-16"><span class="linenos">16</span></a><span class="sd">        Args:</span>
+</span><span id="HashSet-17"><a href="#HashSet-17"><span class="linenos">17</span></a><span class="sd">            buckets (list[DoublyLinkedList]): The list of buckets for the HashSet.</span>
+</span><span id="HashSet-18"><a href="#HashSet-18"><span class="linenos">18</span></a><span class="sd">            capacity (int): The initial capacity of the HashSet.</span>
+</span><span id="HashSet-19"><a href="#HashSet-19"><span class="linenos">19</span></a><span class="sd">            size (int): The number of elements in the HashSet.</span>
+</span><span id="HashSet-20"><a href="#HashSet-20"><span class="linenos">20</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="HashSet-21"><a href="#HashSet-21"><span class="linenos">21</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">buckets</span> <span class="o">=</span> <span class="p">[</span><span class="n">DoublyLinkedList</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">capacity</span><span class="p">)]</span>
+</span><span id="HashSet-22"><a href="#HashSet-22"><span class="linenos">22</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">capacity</span> <span class="o">=</span> <span class="n">capacity</span>
+</span><span id="HashSet-23"><a href="#HashSet-23"><span class="linenos">23</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span id="HashSet-24"><a href="#HashSet-24"><span class="linenos">24</span></a>
+</span><span id="HashSet-25"><a href="#HashSet-25"><span class="linenos">25</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">hash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+</span><span id="HashSet-26"><a href="#HashSet-26"><span class="linenos">26</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="HashSet-27"><a href="#HashSet-27"><span class="linenos">27</span></a><span class="sd">        Hash function that computes the index of the bucket for a given key.</span>
+</span><span id="HashSet-28"><a href="#HashSet-28"><span class="linenos">28</span></a><span class="sd">        Args:</span>
+</span><span id="HashSet-29"><a href="#HashSet-29"><span class="linenos">29</span></a><span class="sd">            key: The key to be hashed.</span>
+</span><span id="HashSet-30"><a href="#HashSet-30"><span class="linenos">30</span></a><span class="sd">        Returns:</span>
+</span><span id="HashSet-31"><a href="#HashSet-31"><span class="linenos">31</span></a><span class="sd">            Porcentage of the key in the capacity of the HashSet.</span>
+</span><span id="HashSet-32"><a href="#HashSet-32"><span class="linenos">32</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="HashSet-33"><a href="#HashSet-33"><span class="linenos">33</span></a>        <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">capacity</span>
+</span><span id="HashSet-34"><a href="#HashSet-34"><span class="linenos">34</span></a>
+</span><span id="HashSet-35"><a href="#HashSet-35"><span class="linenos">35</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+</span><span id="HashSet-36"><a href="#HashSet-36"><span class="linenos">36</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="HashSet-37"><a href="#HashSet-37"><span class="linenos">37</span></a><span class="sd">        Adds a key to the HashSet.</span>
+</span><span id="HashSet-38"><a href="#HashSet-38"><span class="linenos">38</span></a>
+</span><span id="HashSet-39"><a href="#HashSet-39"><span class="linenos">39</span></a><span class="sd">        Args:</span>
+</span><span id="HashSet-40"><a href="#HashSet-40"><span class="linenos">40</span></a><span class="sd">            key: The key to be added to the HashSet.</span>
+</span><span id="HashSet-41"><a href="#HashSet-41"><span class="linenos">41</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="HashSet-42"><a href="#HashSet-42"><span class="linenos">42</span></a>        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>  <span class="c1"># if self.__contains__(key):</span>
+</span><span id="HashSet-43"><a href="#HashSet-43"><span class="linenos">43</span></a>            <span class="k">return</span>
+</span><span id="HashSet-44"><a href="#HashSet-44"><span class="linenos">44</span></a>
+</span><span id="HashSet-45"><a href="#HashSet-45"><span class="linenos">45</span></a>        <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hash</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+</span><span id="HashSet-46"><a href="#HashSet-46"><span class="linenos">46</span></a>        <span class="n">linked_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buckets</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+</span><span id="HashSet-47"><a href="#HashSet-47"><span class="linenos">47</span></a>        <span class="n">linked_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+</span><span id="HashSet-48"><a href="#HashSet-48"><span class="linenos">48</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">+=</span> <span class="mi">1</span>
+</span><span id="HashSet-49"><a href="#HashSet-49"><span class="linenos">49</span></a>
+</span><span id="HashSet-50"><a href="#HashSet-50"><span class="linenos">50</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+</span><span id="HashSet-51"><a href="#HashSet-51"><span class="linenos">51</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="HashSet-52"><a href="#HashSet-52"><span class="linenos">52</span></a><span class="sd">        Removes a key from the HashSet.</span>
+</span><span id="HashSet-53"><a href="#HashSet-53"><span class="linenos">53</span></a>
+</span><span id="HashSet-54"><a href="#HashSet-54"><span class="linenos">54</span></a><span class="sd">        Args:</span>
+</span><span id="HashSet-55"><a href="#HashSet-55"><span class="linenos">55</span></a><span class="sd">            key: The key to be removed from the HashSet.</span>
+</span><span id="HashSet-56"><a href="#HashSet-56"><span class="linenos">56</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="HashSet-57"><a href="#HashSet-57"><span class="linenos">57</span></a>        <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+</span><span id="HashSet-58"><a href="#HashSet-58"><span class="linenos">58</span></a>            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Key is not in the set.&quot;</span><span class="p">)</span>
+</span><span id="HashSet-59"><a href="#HashSet-59"><span class="linenos">59</span></a>
+</span><span id="HashSet-60"><a href="#HashSet-60"><span class="linenos">60</span></a>        <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hash</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+</span><span id="HashSet-61"><a href="#HashSet-61"><span class="linenos">61</span></a>        <span class="n">linked_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buckets</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+</span><span id="HashSet-62"><a href="#HashSet-62"><span class="linenos">62</span></a>
+</span><span id="HashSet-63"><a href="#HashSet-63"><span class="linenos">63</span></a>        <span class="n">linked_list</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+</span><span id="HashSet-64"><a href="#HashSet-64"><span class="linenos">64</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">-=</span> <span class="mi">1</span>
+</span><span id="HashSet-65"><a href="#HashSet-65"><span class="linenos">65</span></a>
+</span><span id="HashSet-66"><a href="#HashSet-66"><span class="linenos">66</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+</span><span id="HashSet-67"><a href="#HashSet-67"><span class="linenos">67</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;if key in conjunto&quot;&quot;&quot;</span>
+</span><span id="HashSet-68"><a href="#HashSet-68"><span class="linenos">68</span></a>        <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hash</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+</span><span id="HashSet-69"><a href="#HashSet-69"><span class="linenos">69</span></a>        <span class="n">linked_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buckets</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+</span><span id="HashSet-70"><a href="#HashSet-70"><span class="linenos">70</span></a>
+</span><span id="HashSet-71"><a href="#HashSet-71"><span class="linenos">71</span></a>        <span class="k">return</span> <span class="n">linked_list</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+</span><span id="HashSet-72"><a href="#HashSet-72"><span class="linenos">72</span></a>
+</span><span id="HashSet-73"><a href="#HashSet-73"><span class="linenos">73</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="HashSet-74"><a href="#HashSet-74"><span class="linenos">74</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the number of elements in the HashSet.&quot;&quot;&quot;</span>
+</span><span id="HashSet-75"><a href="#HashSet-75"><span class="linenos">75</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
+</span><span id="HashSet-76"><a href="#HashSet-76"><span class="linenos">76</span></a>
+</span><span id="HashSet-77"><a href="#HashSet-77"><span class="linenos">77</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">print_lists</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="HashSet-78"><a href="#HashSet-78"><span class="linenos">78</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot; Prints the contents of each bucket in the HashSet.&quot;&quot;&quot;</span>
+</span><span id="HashSet-79"><a href="#HashSet-79"><span class="linenos">79</span></a>        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+</span><span id="HashSet-80"><a href="#HashSet-80"><span class="linenos">80</span></a>            <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; -&gt; &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">linked_list</span><span class="p">)</span>
+</span><span id="HashSet-81"><a href="#HashSet-81"><span class="linenos">81</span></a>            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">linked_list</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">buckets</span><span class="p">)</span>
+</span><span id="HashSet-82"><a href="#HashSet-82"><span class="linenos">82</span></a>        <span class="p">)</span>
+</span><span id="HashSet-83"><a href="#HashSet-83"><span class="linenos">83</span></a>
+</span><span id="HashSet-84"><a href="#HashSet-84"><span class="linenos">84</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="HashSet-85"><a href="#HashSet-85"><span class="linenos">85</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a string representation of the HashSet.&quot;&quot;&quot;</span>
+</span><span id="HashSet-86"><a href="#HashSet-86"><span class="linenos">86</span></a>        <span class="n">elements</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># [25, 35, 22, 59, 61, 21, 26, 54]</span>
+</span><span id="HashSet-87"><a href="#HashSet-87"><span class="linenos">87</span></a>        <span class="k">for</span> <span class="n">linked_list</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buckets</span><span class="p">:</span>
+</span><span id="HashSet-88"><a href="#HashSet-88"><span class="linenos">88</span></a>            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">linked_list</span><span class="p">)):</span>
+</span><span id="HashSet-89"><a href="#HashSet-89"><span class="linenos">89</span></a>                <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">linked_list</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</span><span id="HashSet-90"><a href="#HashSet-90"><span class="linenos">90</span></a>
+</span><span id="HashSet-91"><a href="#HashSet-91"><span class="linenos">91</span></a>        <span class="k">return</span> <span class="s2">&quot;{&quot;</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">element</span><span class="o">.</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;}&quot;</span>
 </span></pre></div>
 
 
-    
+            <div class="docstring"><p>HashSet is a data structure that implements a set using a hash table.
+It uses a list of linked lists to store the elements in the set.
+The hash table is implemented using a list of linked lists, where each linked list
+is a bucket that stores the elements that hash to the same index.</p>
+</div>
+
 
                             <div id="HashSet.__init__" class="classattr">
                                         <input id="HashSet.__init__-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
@@ -229,14 +306,27 @@ data_structures<wbr>.<a href="./../src.html">src</a><wbr>.hashset    </h1>
 
     </div>
     <a class="headerlink" href="#HashSet.__init__"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="HashSet.__init__-6"><a href="#HashSet.__init__-6"><span class="linenos">6</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">capacity</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
-</span><span id="HashSet.__init__-7"><a href="#HashSet.__init__-7"><span class="linenos">7</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">buckets</span> <span class="o">=</span> <span class="p">[</span><span class="n">DoublyLinkedList</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">capacity</span><span class="p">)]</span>
-</span><span id="HashSet.__init__-8"><a href="#HashSet.__init__-8"><span class="linenos">8</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">capacity</span> <span class="o">=</span> <span class="n">capacity</span>
-</span><span id="HashSet.__init__-9"><a href="#HashSet.__init__-9"><span class="linenos">9</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="mi">0</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="HashSet.__init__-13"><a href="#HashSet.__init__-13"><span class="linenos">13</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">capacity</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+</span><span id="HashSet.__init__-14"><a href="#HashSet.__init__-14"><span class="linenos">14</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="HashSet.__init__-15"><a href="#HashSet.__init__-15"><span class="linenos">15</span></a><span class="sd">        Initializes the HashSet with a given capacity.</span>
+</span><span id="HashSet.__init__-16"><a href="#HashSet.__init__-16"><span class="linenos">16</span></a><span class="sd">        Args:</span>
+</span><span id="HashSet.__init__-17"><a href="#HashSet.__init__-17"><span class="linenos">17</span></a><span class="sd">            buckets (list[DoublyLinkedList]): The list of buckets for the HashSet.</span>
+</span><span id="HashSet.__init__-18"><a href="#HashSet.__init__-18"><span class="linenos">18</span></a><span class="sd">            capacity (int): The initial capacity of the HashSet.</span>
+</span><span id="HashSet.__init__-19"><a href="#HashSet.__init__-19"><span class="linenos">19</span></a><span class="sd">            size (int): The number of elements in the HashSet.</span>
+</span><span id="HashSet.__init__-20"><a href="#HashSet.__init__-20"><span class="linenos">20</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="HashSet.__init__-21"><a href="#HashSet.__init__-21"><span class="linenos">21</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">buckets</span> <span class="o">=</span> <span class="p">[</span><span class="n">DoublyLinkedList</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">capacity</span><span class="p">)]</span>
+</span><span id="HashSet.__init__-22"><a href="#HashSet.__init__-22"><span class="linenos">22</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">capacity</span> <span class="o">=</span> <span class="n">capacity</span>
+</span><span id="HashSet.__init__-23"><a href="#HashSet.__init__-23"><span class="linenos">23</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="mi">0</span>
 </span></pre></div>
 
 
-    
+            <div class="docstring"><p>Initializes the HashSet with a given capacity.
+Args:
+    buckets (list[DoublyLinkedList]): The list of buckets for the HashSet.
+    capacity (int): The initial capacity of the HashSet.
+    size (int): The number of elements in the HashSet.</p>
+</div>
+
 
                             </div>
                             <div id="HashSet.buckets" class="classattr">
@@ -283,12 +373,25 @@ data_structures<wbr>.<a href="./../src.html">src</a><wbr>.hashset    </h1>
 
     </div>
     <a class="headerlink" href="#HashSet.hash"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="HashSet.hash-11"><a href="#HashSet.hash-11"><span class="linenos">11</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">hash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
-</span><span id="HashSet.hash-12"><a href="#HashSet.hash-12"><span class="linenos">12</span></a>        <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">capacity</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="HashSet.hash-25"><a href="#HashSet.hash-25"><span class="linenos">25</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">hash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+</span><span id="HashSet.hash-26"><a href="#HashSet.hash-26"><span class="linenos">26</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="HashSet.hash-27"><a href="#HashSet.hash-27"><span class="linenos">27</span></a><span class="sd">        Hash function that computes the index of the bucket for a given key.</span>
+</span><span id="HashSet.hash-28"><a href="#HashSet.hash-28"><span class="linenos">28</span></a><span class="sd">        Args:</span>
+</span><span id="HashSet.hash-29"><a href="#HashSet.hash-29"><span class="linenos">29</span></a><span class="sd">            key: The key to be hashed.</span>
+</span><span id="HashSet.hash-30"><a href="#HashSet.hash-30"><span class="linenos">30</span></a><span class="sd">        Returns:</span>
+</span><span id="HashSet.hash-31"><a href="#HashSet.hash-31"><span class="linenos">31</span></a><span class="sd">            Porcentage of the key in the capacity of the HashSet.</span>
+</span><span id="HashSet.hash-32"><a href="#HashSet.hash-32"><span class="linenos">32</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="HashSet.hash-33"><a href="#HashSet.hash-33"><span class="linenos">33</span></a>        <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">capacity</span>
 </span></pre></div>
 
 
-    
+            <div class="docstring"><p>Hash function that computes the index of the bucket for a given key.
+Args:
+    key: The key to be hashed.
+Returns:
+    Porcentage of the key in the capacity of the HashSet.</p>
+</div>
+
 
                             </div>
                             <div id="HashSet.add" class="classattr">
@@ -302,18 +405,29 @@ data_structures<wbr>.<a href="./../src.html">src</a><wbr>.hashset    </h1>
 
     </div>
     <a class="headerlink" href="#HashSet.add"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="HashSet.add-14"><a href="#HashSet.add-14"><span class="linenos">14</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
-</span><span id="HashSet.add-15"><a href="#HashSet.add-15"><span class="linenos">15</span></a>        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>  <span class="c1"># if self.__contains__(key):</span>
-</span><span id="HashSet.add-16"><a href="#HashSet.add-16"><span class="linenos">16</span></a>            <span class="k">return</span>
-</span><span id="HashSet.add-17"><a href="#HashSet.add-17"><span class="linenos">17</span></a>
-</span><span id="HashSet.add-18"><a href="#HashSet.add-18"><span class="linenos">18</span></a>        <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hash</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-</span><span id="HashSet.add-19"><a href="#HashSet.add-19"><span class="linenos">19</span></a>        <span class="n">linked_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buckets</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
-</span><span id="HashSet.add-20"><a href="#HashSet.add-20"><span class="linenos">20</span></a>        <span class="n">linked_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-</span><span id="HashSet.add-21"><a href="#HashSet.add-21"><span class="linenos">21</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">+=</span> <span class="mi">1</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="HashSet.add-35"><a href="#HashSet.add-35"><span class="linenos">35</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+</span><span id="HashSet.add-36"><a href="#HashSet.add-36"><span class="linenos">36</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="HashSet.add-37"><a href="#HashSet.add-37"><span class="linenos">37</span></a><span class="sd">        Adds a key to the HashSet.</span>
+</span><span id="HashSet.add-38"><a href="#HashSet.add-38"><span class="linenos">38</span></a>
+</span><span id="HashSet.add-39"><a href="#HashSet.add-39"><span class="linenos">39</span></a><span class="sd">        Args:</span>
+</span><span id="HashSet.add-40"><a href="#HashSet.add-40"><span class="linenos">40</span></a><span class="sd">            key: The key to be added to the HashSet.</span>
+</span><span id="HashSet.add-41"><a href="#HashSet.add-41"><span class="linenos">41</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="HashSet.add-42"><a href="#HashSet.add-42"><span class="linenos">42</span></a>        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>  <span class="c1"># if self.__contains__(key):</span>
+</span><span id="HashSet.add-43"><a href="#HashSet.add-43"><span class="linenos">43</span></a>            <span class="k">return</span>
+</span><span id="HashSet.add-44"><a href="#HashSet.add-44"><span class="linenos">44</span></a>
+</span><span id="HashSet.add-45"><a href="#HashSet.add-45"><span class="linenos">45</span></a>        <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hash</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+</span><span id="HashSet.add-46"><a href="#HashSet.add-46"><span class="linenos">46</span></a>        <span class="n">linked_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buckets</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+</span><span id="HashSet.add-47"><a href="#HashSet.add-47"><span class="linenos">47</span></a>        <span class="n">linked_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+</span><span id="HashSet.add-48"><a href="#HashSet.add-48"><span class="linenos">48</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">+=</span> <span class="mi">1</span>
 </span></pre></div>
 
 
-    
+            <div class="docstring"><p>Adds a key to the HashSet.</p>
+
+<p>Args:
+    key: The key to be added to the HashSet.</p>
+</div>
+
 
                             </div>
                             <div id="HashSet.remove" class="classattr">
@@ -327,19 +441,30 @@ data_structures<wbr>.<a href="./../src.html">src</a><wbr>.hashset    </h1>
 
     </div>
     <a class="headerlink" href="#HashSet.remove"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="HashSet.remove-23"><a href="#HashSet.remove-23"><span class="linenos">23</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
-</span><span id="HashSet.remove-24"><a href="#HashSet.remove-24"><span class="linenos">24</span></a>        <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
-</span><span id="HashSet.remove-25"><a href="#HashSet.remove-25"><span class="linenos">25</span></a>            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Key is not in the set.&quot;</span><span class="p">)</span>
-</span><span id="HashSet.remove-26"><a href="#HashSet.remove-26"><span class="linenos">26</span></a>
-</span><span id="HashSet.remove-27"><a href="#HashSet.remove-27"><span class="linenos">27</span></a>        <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hash</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-</span><span id="HashSet.remove-28"><a href="#HashSet.remove-28"><span class="linenos">28</span></a>        <span class="n">linked_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buckets</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
-</span><span id="HashSet.remove-29"><a href="#HashSet.remove-29"><span class="linenos">29</span></a>
-</span><span id="HashSet.remove-30"><a href="#HashSet.remove-30"><span class="linenos">30</span></a>        <span class="n">linked_list</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-</span><span id="HashSet.remove-31"><a href="#HashSet.remove-31"><span class="linenos">31</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">-=</span> <span class="mi">1</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="HashSet.remove-50"><a href="#HashSet.remove-50"><span class="linenos">50</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+</span><span id="HashSet.remove-51"><a href="#HashSet.remove-51"><span class="linenos">51</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="HashSet.remove-52"><a href="#HashSet.remove-52"><span class="linenos">52</span></a><span class="sd">        Removes a key from the HashSet.</span>
+</span><span id="HashSet.remove-53"><a href="#HashSet.remove-53"><span class="linenos">53</span></a>
+</span><span id="HashSet.remove-54"><a href="#HashSet.remove-54"><span class="linenos">54</span></a><span class="sd">        Args:</span>
+</span><span id="HashSet.remove-55"><a href="#HashSet.remove-55"><span class="linenos">55</span></a><span class="sd">            key: The key to be removed from the HashSet.</span>
+</span><span id="HashSet.remove-56"><a href="#HashSet.remove-56"><span class="linenos">56</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="HashSet.remove-57"><a href="#HashSet.remove-57"><span class="linenos">57</span></a>        <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+</span><span id="HashSet.remove-58"><a href="#HashSet.remove-58"><span class="linenos">58</span></a>            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Key is not in the set.&quot;</span><span class="p">)</span>
+</span><span id="HashSet.remove-59"><a href="#HashSet.remove-59"><span class="linenos">59</span></a>
+</span><span id="HashSet.remove-60"><a href="#HashSet.remove-60"><span class="linenos">60</span></a>        <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hash</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+</span><span id="HashSet.remove-61"><a href="#HashSet.remove-61"><span class="linenos">61</span></a>        <span class="n">linked_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buckets</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+</span><span id="HashSet.remove-62"><a href="#HashSet.remove-62"><span class="linenos">62</span></a>
+</span><span id="HashSet.remove-63"><a href="#HashSet.remove-63"><span class="linenos">63</span></a>        <span class="n">linked_list</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+</span><span id="HashSet.remove-64"><a href="#HashSet.remove-64"><span class="linenos">64</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">-=</span> <span class="mi">1</span>
 </span></pre></div>
 
 
-    
+            <div class="docstring"><p>Removes a key from the HashSet.</p>
+
+<p>Args:
+    key: The key to be removed from the HashSet.</p>
+</div>
+
 
                             </div>
                             <div id="HashSet.print_lists" class="classattr">
@@ -353,15 +478,18 @@ data_structures<wbr>.<a href="./../src.html">src</a><wbr>.hashset    </h1>
 
     </div>
     <a class="headerlink" href="#HashSet.print_lists"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="HashSet.print_lists-43"><a href="#HashSet.print_lists-43"><span class="linenos">43</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">print_lists</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="HashSet.print_lists-44"><a href="#HashSet.print_lists-44"><span class="linenos">44</span></a>        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-</span><span id="HashSet.print_lists-45"><a href="#HashSet.print_lists-45"><span class="linenos">45</span></a>            <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; -&gt; &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">linked_list</span><span class="p">)</span>
-</span><span id="HashSet.print_lists-46"><a href="#HashSet.print_lists-46"><span class="linenos">46</span></a>            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">linked_list</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">buckets</span><span class="p">)</span>
-</span><span id="HashSet.print_lists-47"><a href="#HashSet.print_lists-47"><span class="linenos">47</span></a>        <span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="HashSet.print_lists-77"><a href="#HashSet.print_lists-77"><span class="linenos">77</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">print_lists</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="HashSet.print_lists-78"><a href="#HashSet.print_lists-78"><span class="linenos">78</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot; Prints the contents of each bucket in the HashSet.&quot;&quot;&quot;</span>
+</span><span id="HashSet.print_lists-79"><a href="#HashSet.print_lists-79"><span class="linenos">79</span></a>        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+</span><span id="HashSet.print_lists-80"><a href="#HashSet.print_lists-80"><span class="linenos">80</span></a>            <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; -&gt; &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">linked_list</span><span class="p">)</span>
+</span><span id="HashSet.print_lists-81"><a href="#HashSet.print_lists-81"><span class="linenos">81</span></a>            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">linked_list</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">buckets</span><span class="p">)</span>
+</span><span id="HashSet.print_lists-82"><a href="#HashSet.print_lists-82"><span class="linenos">82</span></a>        <span class="p">)</span>
 </span></pre></div>
 
 
-    
+            <div class="docstring"><p>Prints the contents of each bucket in the HashSet.</p>
+</div>
+
 
                             </div>
                 </section>
