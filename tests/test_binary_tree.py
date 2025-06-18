@@ -71,15 +71,68 @@ def test_inorder(binary_tree):
     assert binary_tree.inorder() == [1, 2, 4]
 
     binary_tree.insert(-1)
+
     assert binary_tree.inorder() == [-1, 1, 2, 4]
 
     binary_tree.insert(-5)
     assert binary_tree.inorder() == [-5, -1, 1, 2, 4]
 
+    binary_tree.insert(0)
+    assert binary_tree.inorder() == [-5, -1, 0, 1, 2, 4]
 
-# def test_remove(binary_tree):
-#     with pytest.raises(Exception):
-#         binary_tree.remove(1)
+
+def test_remove(binary_tree):
+    with pytest.raises(Exception):
+        binary_tree.remove(1)
+
+    binary_tree.insert(5)
+    binary_tree.insert(1)
+    binary_tree.insert(-1)
+    binary_tree.insert(2)
+    binary_tree.insert(10)
+    binary_tree.insert(7)
+    binary_tree.insert(6)
+
+    #             5
+    #     1               10
+    # -1      2       7
+    #               6
+
+    node_5 = binary_tree.root
+    node_1 = node_5.left
+    node_2 = node_1.right
+    node_10 = node_5.right
+    node_7 = node_10.left
+    node_6 = node_7.left
+
+    # remove folha
+    binary_tree.remove(-1)
+    assert node_1.left is None
+    #             5
+    #     1               10
+    # -1      2       7
+    #               6
+
+    # remove nó com um filho
+    # substitui o nó pelo filho
+    binary_tree.remove(1)
+    assert node_5.left == node_2
+    #             5
+    #     2               10
+    #                  7
+    #               6
+
+    # remove nó com dois filhos
+    # substitui o nó pelo sucessor
+    binary_tree.remove(5)
+    assert node_7.left is None
+    assert binary_tree.root == node_6
+    assert node_6.left == node_2
+    assert node_6.right == node_10
+
+    #     6
+    # 2       10
+    #        7
 
 
 # def test_string_set(binary_tree):
