@@ -1,30 +1,40 @@
+from abc import abstractmethod, ABC
 import pprint
-from turtle import right
+from typing import Any, TypeVar, Generic, Optional
 
 
-class TreeNode:
-    def __init__(self, value, parent):
-        self.value = value
-        self.left = None
-        self.right = None
-        self.parent = parent
+class Comparable(ABC):
+    @abstractmethod
+    def __lt__(self, a: Any) -> bool:
+        pass
 
-    def has_no_child(self):
+
+T = TypeVar("T", bound=Comparable)
+
+
+class TreeNode(Generic[T]):
+    def __init__(self, value: T, parent: Optional["TreeNode[T]"]) -> None:
+        self.value: T = value
+        self.left: Optional[TreeNode[T]] = None
+        self.right: Optional[TreeNode[T]] = None
+        self.parent: Optional[TreeNode[T]] = parent
+
+    def has_no_child(self) -> bool:
         return self.left is None and self.right is None
 
-    def has_one_child(self):
+    def has_one_child(self) -> bool:
         return (self.left is None) ^ (self.right is None)
 
-    def has_two_childs(self):
+    def has_two_childs(self) -> bool:
         return self.left is not None and self.right is not None
 
-    def get_child(self):
+    def get_child(self) -> Optional["TreeNode[T]"]:
         if self.left is not None:
             return self.left
         else:
             return self.right
 
-    def get_successor(self):
+    def get_successor(self) -> Optional["TreeNode[T]"]:
         if self.right is None:
             return
 
@@ -35,28 +45,26 @@ class TreeNode:
 
         return aux_node
 
-    def replace(self, new_node):
+    def replace(self, new_node: Optional["TreeNode[T]"]) -> None:
         if self.parent is not None:
             if self.parent.left == self:
                 self.parent.left = new_node
             else:
                 self.parent.right = new_node
 
-        if self.left != new_node:
+        if new_node and self.left != new_node:
             new_node.left = self.left
-        if self.right != new_node:
+        if new_node and self.right != new_node:
             new_node.right = self.right
 
 
-class BinaryTree:
-    def __init__(self):
-        self.root = None
-        self.size = 0
+class BinaryTree(Generic[T]):
+    def __init__(self) -> None:
+        self.root: Optional[TreeNode[T]] = None
+        self.size: int = 0
 
-    def _insert(self, node, value):
-        if self.root is None:
-            self.root = TreeNode(value, None)
-        elif value <= node.value:
+    def _insert(self, node: TreeNode[T], value: T) -> None:
+        if value <= node.value:
             if node.left is None:
                 node.left = TreeNode(value, node)
             else:
@@ -67,21 +75,27 @@ class BinaryTree:
             else:
                 self._insert(node.right, value)
 
-    def insert(self, value):
+    def insert(self, value: T):
+        if self.root is None:
+            self.root = TreeNode(value, None)
+            return
+
         self._insert(self.root, value)
         self.size += 1
 
-    def __len__(self):
+    def __len__(self) -> int:
         return self.size
 
-    def __contains__(self, value):
+    def __contains__(self, value) -> bool:
         return self.search(value) is not None
 
-    def remove(self, value):
+    def remove(self, value: T) -> None:
         node_to_remove = self.search(value)
 
         if node_to_remove is None:
             raise Exception("Value doesn't exist in the tree.")
+
+        self.size -= 1
 
         if node_to_remove.has_no_child():
             if node_to_remove == self.root:

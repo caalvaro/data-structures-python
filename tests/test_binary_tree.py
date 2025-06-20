@@ -108,6 +108,7 @@ def test_remove(binary_tree):
     # remove folha
     binary_tree.remove(-1)
     assert node_1.left is None
+    assert binary_tree.size == 6
     #             5
     #     1               10
     # -1      2       7
