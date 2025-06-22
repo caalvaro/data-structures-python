@@ -210,7 +210,7 @@ class BinaryTree(Generic[T]):
 
             node_to_remove.replace(successor)
 
-    def _search(self, node: Optional[TreeNode[T]], value: T):
+    def _search(self, node: Optional[TreeNode[T]], value: T) -> Optional[TreeNode[T]]:
         '''Search for a value in the binary tree.
         This method is called recursively to find the node with the given value.
         Args:
@@ -226,7 +226,7 @@ class BinaryTree(Generic[T]):
         else:
             return self._search(node.left, value)
 
-    def search(self, value: T):
+    def search(self, value: T) -> Optional[TreeNode[T]]:
         '''Search for a value in the binary tree.
         This method calls the _search method to find the node with the given value.
         Args:
@@ -237,7 +237,7 @@ class BinaryTree(Generic[T]):
         return self._search(self.root, value)
 
     # list (List) é mutável e aceita .append(), mas é invariante e pode causar erros de tipagem em genéricos.
-    def _inorder(self, node: Optional[TreeNode[T]], values: List[T]):
+    def _inorder(self, node: Optional[TreeNode[T]], values: List[T]) -> List[T]:
         '''Perform an inorder traversal of the binary tree.
         This method is called recursively to visit the left subtree, then the current node, and finally the right subtree.
         Args:
@@ -254,14 +254,14 @@ class BinaryTree(Generic[T]):
 
         return values
 
-    def inorder(self):
+    def inorder(self) -> List[T]:
         '''Get the values of the binary tree in inorder traversal.
         Returns:
             List[T]: A list of values in inorder traversal.
         '''
         return self._inorder(self.root, [])
 
-    def _print(self, node: Optional[TreeNode[T]]):
+    def _print(self, node: Optional[TreeNode[T]]) -> Optional[dict]:
         '''Print the binary tree in a structured format.
         This method is called recursively to print the current node and its left and right children.
         Args:
@@ -278,7 +278,7 @@ class BinaryTree(Generic[T]):
             "right": self._print(node.right),
         }
 
-    def print(self):
+    def print(self) -> None:
         '''Print the binary tree in a structured format.
         This method calls the _print method to get the dictionary representation of the binary tree and prints it.
         Returns: None'''
